@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     3rdparty/qModMaster/busmonitor.cpp \
     3rdparty/qModMaster/registersmodel.cpp \
     3rdparty/qModMaster/eutils.cpp \
-    eswitchwindow.cpp
+    eswitchwindow.cpp \
+    eswitch.cpp
 
 HEADERS  += mainwindow.h \
     windowoptions.h \
@@ -44,7 +45,8 @@ HEADERS  += mainwindow.h \
     3rdparty/qModMaster/busmonitor.h \
     3rdparty/qModMaster/registersmodel.h \
     3rdparty/qModMaster/eutils.h \
-    eswitchwindow.h
+    eswitchwindow.h \
+    eswitch.h
 
 FORMS    += mainwindow.ui \
     windowoptions.ui \

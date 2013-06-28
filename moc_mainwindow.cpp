@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Wed Jun 5 20:48:43 2013
+** Created: Fri Jun 28 21:33:04 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -43,8 +43,12 @@ static const uint qt_meta_data_MainWindow[] = {
      205,   11,   11,   11, 0x08,
      230,   11,   11,   11, 0x08,
      256,   11,   11,   11, 0x08,
-     273,   11,   11,   11, 0x0a,
-     285,   11,   11,   11, 0x0a,
+     273,   11,   11,   11, 0x08,
+     292,   11,   11,   11, 0x08,
+     309,   11,   11,   11, 0x08,
+     327,   11,   11,   11, 0x08,
+     350,   11,   11,   11, 0x0a,
+     362,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -58,6 +62,8 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "registersReadDeviceId()\0"
     "registersWriteRegister()\0"
     "registersClearRegisters()\0eswitchStartOn()\0"
+    "eSwitchClassInit()\0eSwitchClassOn()\0"
+    "eSwitchClassOff()\0eSwitchClassGetState()\0"
     "eswitchOn()\0eswitchOff()\0"
 };
 
@@ -79,8 +85,12 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 9: _t->registersWriteRegister(); break;
         case 10: _t->registersClearRegisters(); break;
         case 11: _t->eswitchStartOn(); break;
-        case 12: _t->eswitchOn(); break;
-        case 13: _t->eswitchOff(); break;
+        case 12: _t->eSwitchClassInit(); break;
+        case 13: _t->eSwitchClassOn(); break;
+        case 14: _t->eSwitchClassOff(); break;
+        case 15: _t->eSwitchClassGetState(); break;
+        case 16: _t->eswitchOn(); break;
+        case 17: _t->eswitchOff(); break;
         default: ;
         }
     }
@@ -118,9 +128,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 18;
     }
     return _id;
 }

@@ -79,6 +79,9 @@ void MainWindow::initbuttons()
     connect(eSwitchWindowControl, SIGNAL(switchOff()), this, SLOT(eswitchOff()));
     connect(ui->pushButtonStartOn, SIGNAL(clicked()), this, SLOT(eswitchStartOn()));
     connect(ui->pushButtonStopOn, SIGNAL(clicked()), this, SLOT(eswitchOff()));
+    connect(ui->pushButtoneSwitchClassOn, SIGNAL(clicked()), this, SLOT(eSwitchClassOn()));
+    connect(ui->pushButtoneSwitchClassOff, SIGNAL(clicked()), this, SLOT(eSwitchClassOff()));
+    connect(ui->pushButtonIniteSwitchClass, SIGNAL(clicked()), this, SLOT(eSwitchClassInit()));
  //   connect(this->eSwitchOnTimer, SIGNAL(timeout()), this, SLOT(eswitchOff()));
 }
 
@@ -184,7 +187,10 @@ void MainWindow::readRequest()
         readWattMeterRequest();
         break;
     case 2 : qDebug() << "read eSwitch";
-        readWattMeterRequest();
+        readeSwitchRequest();
+        break;
+    case 3 : qDebug() << "read eSwitch Class";
+        eSwitchClassGetState();
         break;
     default : qDebug() << "nothing to read";
         break;
@@ -523,6 +529,52 @@ void MainWindow::eswitchStartOn()
     this->eswitchOn();
 }
 
+void MainWindow::eSwitchClassInit()
+{
+    int addr;
+    bool ok;
+    QString str;
+    this->deskLamp = new eSwitch;
+
+    if (ui->lineEditAddreSwitchClass->text().isEmpty()) {
+        str = QInputDialog::getText(this, QString::fromLocal8Bit("Не задан адрес устройства"),
+                                     QString::fromLocal8Bit("Адрес устройства: "), QLineEdit::Normal, "", &ok);
+        if (ok) {
+            ui->lineEditAddreSwitchClass->setText(checkDataString(str, 2));
+        }
+        else {
+           return;
+        }
+    }
+
+    addr = getIntFromTexEditText(ui->lineEditAddreSwitchClass->text());
+
+    this->deskLamp->setMbPort(this->mbPort);
+    this->deskLamp->setMbAddr(addr);
+}
+
+void MainWindow::eSwitchClassOn()
+{
+    this->deskLamp->on();
+}
+
+void MainWindow::eSwitchClassOff()
+{
+    this->deskLamp->off();
+}
+
+void MainWindow::eSwitchClassGetState()
+{
+    quint16 state;
+
+    state = this->deskLamp->getState();
+    if (state) {
+        ui->checkBoxeSwitchClassLamp->setChecked(true);
+    }
+    else {
+        ui->checkBoxeSwitchClassLamp->setChecked(false);
+    }
+}
 
 // проверка адреса и данных на правельность ввода
 // перекодировка строки из dec в hex и обратно в зависимости от радиобатон

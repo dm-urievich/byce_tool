@@ -16,6 +16,8 @@
 #include "modbusadapter.h"
 #include "eswitchwindow.h"
 
+#include "eswitch.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -43,6 +45,8 @@ private:
 
     eSwitchWindow* eSwitchWindowControl;
     QTimer *eSwitchOnTimer;
+
+    eSwitch *deskLamp;
 
     void initbuttons();
     void readRegistersRequest(void);
@@ -75,6 +79,10 @@ private slots:
     // обработчики кнопок на закладке выключателя
     void eswitchStartOn(void);
     //void eswitchStopOn(void);
+    void eSwitchClassInit(void);
+    void eSwitchClassOn(void);
+    void eSwitchClassOff(void);
+    void eSwitchClassGetState(void);
 
 public slots:
     // обработчики кнопок на закладке выключателя

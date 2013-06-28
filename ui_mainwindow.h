@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Wed Jun 5 20:48:33 2013
+** Created: Fri Jun 28 21:15:19 2013
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -127,6 +127,12 @@ public:
     QLineEdit *lineEditTimeOn;
     QPushButton *pushButtonStopOn;
     QPushButton *pushButtonStartOn;
+    QWidget *tab;
+    QPushButton *pushButtonIniteSwitchClass;
+    QLineEdit *lineEditAddreSwitchClass;
+    QPushButton *pushButtoneSwitchClassOn;
+    QPushButton *pushButtoneSwitchClassOff;
+    QCheckBox *checkBoxeSwitchClassLamp;
     QMenuBar *menuBar;
     QStatusBar *statusBar;
     QToolBar *mainToolBar;
@@ -661,6 +667,24 @@ public:
         pushButtonStartOn->setObjectName(QString::fromUtf8("pushButtonStartOn"));
         pushButtonStartOn->setGeometry(QRect(150, 230, 98, 27));
         tabWidgetMain->addTab(tabeSwitch, QString());
+        tab = new QWidget();
+        tab->setObjectName(QString::fromUtf8("tab"));
+        pushButtonIniteSwitchClass = new QPushButton(tab);
+        pushButtonIniteSwitchClass->setObjectName(QString::fromUtf8("pushButtonIniteSwitchClass"));
+        pushButtonIniteSwitchClass->setGeometry(QRect(140, 20, 98, 27));
+        lineEditAddreSwitchClass = new QLineEdit(tab);
+        lineEditAddreSwitchClass->setObjectName(QString::fromUtf8("lineEditAddreSwitchClass"));
+        lineEditAddreSwitchClass->setGeometry(QRect(20, 20, 101, 27));
+        pushButtoneSwitchClassOn = new QPushButton(tab);
+        pushButtoneSwitchClassOn->setObjectName(QString::fromUtf8("pushButtoneSwitchClassOn"));
+        pushButtoneSwitchClassOn->setGeometry(QRect(20, 70, 101, 27));
+        pushButtoneSwitchClassOff = new QPushButton(tab);
+        pushButtoneSwitchClassOff->setObjectName(QString::fromUtf8("pushButtoneSwitchClassOff"));
+        pushButtoneSwitchClassOff->setGeometry(QRect(20, 110, 101, 27));
+        checkBoxeSwitchClassLamp = new QCheckBox(tab);
+        checkBoxeSwitchClassLamp->setObjectName(QString::fromUtf8("checkBoxeSwitchClassLamp"));
+        checkBoxeSwitchClassLamp->setGeometry(QRect(20, 170, 97, 22));
+        tabWidgetMain->addTab(tab, QString());
 
         verticalLayout->addWidget(tabWidgetMain);
 
@@ -679,7 +703,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidgetMain->setCurrentIndex(2);
+        tabWidgetMain->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -728,6 +752,11 @@ public:
         pushButtonStopOn->setText(QApplication::translate("MainWindow", "Stop", 0, QApplication::UnicodeUTF8));
         pushButtonStartOn->setText(QApplication::translate("MainWindow", "Start", 0, QApplication::UnicodeUTF8));
         tabWidgetMain->setTabText(tabWidgetMain->indexOf(tabeSwitch), QApplication::translate("MainWindow", "eSwitch", 0, QApplication::UnicodeUTF8));
+        pushButtonIniteSwitchClass->setText(QApplication::translate("MainWindow", "initialize", 0, QApplication::UnicodeUTF8));
+        pushButtoneSwitchClassOn->setText(QApplication::translate("MainWindow", "on", 0, QApplication::UnicodeUTF8));
+        pushButtoneSwitchClassOff->setText(QApplication::translate("MainWindow", "off", 0, QApplication::UnicodeUTF8));
+        checkBoxeSwitchClassLamp->setText(QApplication::translate("MainWindow", "lamp", 0, QApplication::UnicodeUTF8));
+        tabWidgetMain->setTabText(tabWidgetMain->indexOf(tab), QApplication::translate("MainWindow", "eSwitch class", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
