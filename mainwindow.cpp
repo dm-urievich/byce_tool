@@ -127,6 +127,8 @@ void MainWindow::buttonOpenCloseClick()
         else {
             ui->statusBar->showMessage("mbPort Open " + portName);
             ui->buttonOpenClose->setText(QString::fromLocal8Bit("Закрыть"));
+
+            eSwitch::setMbPort(this->mbPort);
         }
     }
     else {
@@ -534,7 +536,7 @@ void MainWindow::eSwitchClassInit()
     int addr;
     bool ok;
     QString str;
-    this->deskLamp = new eSwitch;
+    this->deskLamp = new eSwitch("Desk Lamp", 2);
 
     if (ui->lineEditAddreSwitchClass->text().isEmpty()) {
         str = QInputDialog::getText(this, QString::fromLocal8Bit("Не задан адрес устройства"),
@@ -549,7 +551,7 @@ void MainWindow::eSwitchClassInit()
 
     addr = getIntFromTexEditText(ui->lineEditAddreSwitchClass->text());
 
-    this->deskLamp->setMbPort(this->mbPort);
+//    this->deskLamp->setMbPort(this->mbPort);
     this->deskLamp->setMbAddr(addr);
 }
 

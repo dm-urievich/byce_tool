@@ -1,9 +1,9 @@
 #include "eswitch.h"
 
-eSwitch::eSwitch()
+eSwitch::eSwitch(const QString &name, int addr) : name(name)
 {
 
-    mbAddr = 0;
+    this->mbAddr = addr;
 }
 
 quint16 eSwitch::getState()
@@ -19,7 +19,7 @@ quint16 eSwitch::getState()
 
 void eSwitch::setMbPort(modbus_t *mbPort)
 {
-    this->mbPort = mbPort;
+    mbPort = mbPort;
 }
 
 void eSwitch::setMbAddr(int addr)
@@ -33,18 +33,7 @@ void eSwitch::on()
     int regAddr = 0;
     int data = 1;
 
-    if (this->mbPort == NULL) {
-        QMessageBox::information(NULL, QString::fromLocal8Bit("Ошибка подключения"),
-                                QString::fromLocal8Bit("Последовательный порт не отрыт!"));
-        return;
-    }
-
     addr = this->mbAddr;
-    if (addr == -1) {
-        QMessageBox::information(NULL, QString::fromLocal8Bit("Ошибка подключения"),
-                                QString::fromLocal8Bit("Не задан сетевой адрес устройства!"));
-        return;
-    }
 
     modbus_set_slave(this->mbPort, addr);
     modbus_write_register(this->mbPort, regAddr, data);
@@ -56,18 +45,7 @@ void eSwitch::off()
     int regAddr = 0;
     int data = 0;
 
-    if (this->mbPort == NULL) {
-        QMessageBox::information(NULL, QString::fromLocal8Bit("Ошибка подключения"),
-                                QString::fromLocal8Bit("Последовательный порт не отрыт!"));
-        return;
-    }
-
     addr = this->mbAddr;
-    if (addr == -1) {
-        QMessageBox::information(NULL, QString::fromLocal8Bit("Ошибка подключения"),
-                                QString::fromLocal8Bit("Не задан сетевой адрес устройства!"));
-        return;
-    }
 
     modbus_set_slave(this->mbPort, addr);
     modbus_write_register(this->mbPort, regAddr, data);
