@@ -27,7 +27,10 @@ SOURCES += main.cpp\
     3rdparty/qModMaster/registersmodel.cpp \
     3rdparty/qModMaster/eutils.cpp \
     eswitchwindow.cpp \
-    eswitch.cpp
+    eswitch.cpp \
+    module.cpp \
+    software.cpp \
+    hardware.cpp
 
 HEADERS  += mainwindow.h \
     windowoptions.h \
@@ -46,7 +49,10 @@ HEADERS  += mainwindow.h \
     3rdparty/qModMaster/registersmodel.h \
     3rdparty/qModMaster/eutils.h \
     eswitchwindow.h \
-    eswitch.h
+    eswitch.h \
+    module.h \
+    software.h \
+    hardware.h
 
 FORMS    += mainwindow.ui \
     windowoptions.ui \

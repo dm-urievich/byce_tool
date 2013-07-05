@@ -21,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
     mbReadRequestTimer = new QTimer;
     eSwitchOnTimer = new QTimer;
 
+    hardwareVector = new QVector<Hardware*>;
+    numModuls_ = 0;
+
     qDebug() << "Hello debug";
 
     this->mbPort = NULL;
@@ -79,8 +82,6 @@ void MainWindow::initbuttons()
     connect(eSwitchWindowControl, SIGNAL(switchOff()), this, SLOT(eswitchOff()));
     connect(ui->pushButtonStartOn, SIGNAL(clicked()), this, SLOT(eswitchStartOn()));
     connect(ui->pushButtonStopOn, SIGNAL(clicked()), this, SLOT(eswitchOff()));
-    connect(ui->pushButtoneSwitchClassOn, SIGNAL(clicked()), this, SLOT(eSwitchClassOn()));
-    connect(ui->pushButtoneSwitchClassOff, SIGNAL(clicked()), this, SLOT(eSwitchClassOff()));
     connect(ui->pushButtonIniteSwitchClass, SIGNAL(clicked()), this, SLOT(eSwitchClassInit()));
  //   connect(this->eSwitchOnTimer, SIGNAL(timeout()), this, SLOT(eswitchOff()));
 }
@@ -128,7 +129,7 @@ void MainWindow::buttonOpenCloseClick()
             ui->statusBar->showMessage("mbPort Open " + portName);
             ui->buttonOpenClose->setText(QString::fromLocal8Bit("Закрыть"));
 
-            eSwitch::setMbPort(this->mbPort);
+          //  eSwitch::setMbPort(this->mbPort);
         }
     }
     else {
@@ -192,7 +193,7 @@ void MainWindow::readRequest()
         readeSwitchRequest();
         break;
     case 3 : qDebug() << "read eSwitch Class";
-        eSwitchClassGetState();
+
         break;
     default : qDebug() << "nothing to read";
         break;
@@ -534,9 +535,10 @@ void MainWindow::eswitchStartOn()
 void MainWindow::eSwitchClassInit()
 {
     int addr;
+    int xPos = 0;
     bool ok;
-    QString str;
-    this->deskLamp = new eSwitch("Desk Lamp", 2);
+    QString str, name;
+    eSwitch *eswitchDev;
 
     if (ui->lineEditAddreSwitchClass->text().isEmpty()) {
         str = QInputDialog::getText(this, QString::fromLocal8Bit("Не задан адрес устройства"),
@@ -551,31 +553,18 @@ void MainWindow::eSwitchClassInit()
 
     addr = getIntFromTexEditText(ui->lineEditAddreSwitchClass->text());
 
-//    this->deskLamp->setMbPort(this->mbPort);
-    this->deskLamp->setMbAddr(addr);
-}
+    name = ui->lineEditNameeSwitchClass->text();
+    addr = ui->lineEditAddreSwitchClass->text().toInt();
+    eswitchDev = new eSwitch(ui->tab, name, addr);
+    // помещаем девайс на форму
+    xPos = numModuls_ * 125 + 10;
+    eswitchDev->move(xPos, 100);
+    numModuls_++;
 
-void MainWindow::eSwitchClassOn()
-{
-    this->deskLamp->on();
-}
+    eswitchDev->setMbPort(this->mbPort);
+    eswitchDev->setMbAddr(addr);
 
-void MainWindow::eSwitchClassOff()
-{
-    this->deskLamp->off();
-}
-
-void MainWindow::eSwitchClassGetState()
-{
-    quint16 state;
-
-    state = this->deskLamp->getState();
-    if (state) {
-        ui->checkBoxeSwitchClassLamp->setChecked(true);
-    }
-    else {
-        ui->checkBoxeSwitchClassLamp->setChecked(false);
-    }
+    hardwareVector->push_back(eswitchDev);
 }
 
 // проверка адреса и данных на правельность ввода

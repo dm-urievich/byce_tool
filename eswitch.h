@@ -5,6 +5,12 @@
 #include <stddef.h>
 #include <QString>
 #include <QMessageBox>
+#include <QLabel>
+#include <QPushButton>
+#include <QObject>
+#include <QTimer>
+
+#include "hardware.h"
 
 // конкретный класс выключателя
 // в дальнейшем придумать базовый класс и наследовать выключатель от него
@@ -24,13 +30,26 @@
  * все проверки наличия открытого порта и т.д. в базовом классе
  *
  */
-class eSwitch
+class eSwitch : public Hardware
 {
+    Q_OBJECT
+
 public:
-    eSwitch(const QString &name, int addr);
+    enum {e_off = 0, e_on = 1};
+
+    //eSwitch(const QString &name, int addr);
+    eSwitch(QWidget *parent = 0, QString name = QString::fromLocal8Bit("eSwitch"), int addr = 1);
     QString name;
 
-    static void setMbPort(modbus_t *mbPort);
+    void paintEvent(QPaintEvent *);
+    QLabel *nameDev;
+
+    QTimer *readTimer;
+
+    int eSwitchOutState;
+
+    //static void setMbPort(modbus_t *port);
+    void setMbPort(modbus_t *port);
 
     void settings(void);
     quint16 getState(void);
@@ -43,8 +62,14 @@ public:
     void off(void);
 
 private:
+    QPushButton *mainButton;
     int mbAddr;
     modbus_t *mbPort;
+    void changeButtonIcon(void);
+
+private slots:
+    void mainButtonClick(void);
+    void readTimerEvent(void);
 
 };
 

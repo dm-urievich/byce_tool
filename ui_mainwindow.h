@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Fri Jun 28 21:15:19 2013
+** Created: Wed Jul 3 19:40:28 2013
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -128,11 +128,13 @@ public:
     QPushButton *pushButtonStopOn;
     QPushButton *pushButtonStartOn;
     QWidget *tab;
-    QPushButton *pushButtonIniteSwitchClass;
+    QWidget *widget1;
+    QGridLayout *gridLayout_4;
+    QLabel *label_17;
+    QLabel *label_18;
+    QLineEdit *lineEditNameeSwitchClass;
     QLineEdit *lineEditAddreSwitchClass;
-    QPushButton *pushButtoneSwitchClassOn;
-    QPushButton *pushButtoneSwitchClassOff;
-    QCheckBox *checkBoxeSwitchClassLamp;
+    QPushButton *pushButtonIniteSwitchClass;
     QMenuBar *menuBar;
     QStatusBar *statusBar;
     QToolBar *mainToolBar;
@@ -669,21 +671,40 @@ public:
         tabWidgetMain->addTab(tabeSwitch, QString());
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
-        pushButtonIniteSwitchClass = new QPushButton(tab);
-        pushButtonIniteSwitchClass->setObjectName(QString::fromUtf8("pushButtonIniteSwitchClass"));
-        pushButtonIniteSwitchClass->setGeometry(QRect(140, 20, 98, 27));
-        lineEditAddreSwitchClass = new QLineEdit(tab);
+        widget1 = new QWidget(tab);
+        widget1->setObjectName(QString::fromUtf8("widget1"));
+        widget1->setGeometry(QRect(20, 20, 430, 52));
+        gridLayout_4 = new QGridLayout(widget1);
+        gridLayout_4->setSpacing(6);
+        gridLayout_4->setContentsMargins(11, 11, 11, 11);
+        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
+        gridLayout_4->setContentsMargins(0, 0, 0, 0);
+        label_17 = new QLabel(widget1);
+        label_17->setObjectName(QString::fromUtf8("label_17"));
+
+        gridLayout_4->addWidget(label_17, 0, 0, 1, 1);
+
+        label_18 = new QLabel(widget1);
+        label_18->setObjectName(QString::fromUtf8("label_18"));
+
+        gridLayout_4->addWidget(label_18, 0, 1, 1, 1);
+
+        lineEditNameeSwitchClass = new QLineEdit(widget1);
+        lineEditNameeSwitchClass->setObjectName(QString::fromUtf8("lineEditNameeSwitchClass"));
+        lineEditNameeSwitchClass->setMinimumSize(QSize(201, 0));
+
+        gridLayout_4->addWidget(lineEditNameeSwitchClass, 1, 0, 1, 1);
+
+        lineEditAddreSwitchClass = new QLineEdit(widget1);
         lineEditAddreSwitchClass->setObjectName(QString::fromUtf8("lineEditAddreSwitchClass"));
-        lineEditAddreSwitchClass->setGeometry(QRect(20, 20, 101, 27));
-        pushButtoneSwitchClassOn = new QPushButton(tab);
-        pushButtoneSwitchClassOn->setObjectName(QString::fromUtf8("pushButtoneSwitchClassOn"));
-        pushButtoneSwitchClassOn->setGeometry(QRect(20, 70, 101, 27));
-        pushButtoneSwitchClassOff = new QPushButton(tab);
-        pushButtoneSwitchClassOff->setObjectName(QString::fromUtf8("pushButtoneSwitchClassOff"));
-        pushButtoneSwitchClassOff->setGeometry(QRect(20, 110, 101, 27));
-        checkBoxeSwitchClassLamp = new QCheckBox(tab);
-        checkBoxeSwitchClassLamp->setObjectName(QString::fromUtf8("checkBoxeSwitchClassLamp"));
-        checkBoxeSwitchClassLamp->setGeometry(QRect(20, 170, 97, 22));
+
+        gridLayout_4->addWidget(lineEditAddreSwitchClass, 1, 1, 1, 1);
+
+        pushButtonIniteSwitchClass = new QPushButton(widget1);
+        pushButtonIniteSwitchClass->setObjectName(QString::fromUtf8("pushButtonIniteSwitchClass"));
+
+        gridLayout_4->addWidget(pushButtonIniteSwitchClass, 1, 2, 1, 1);
+
         tabWidgetMain->addTab(tab, QString());
 
         verticalLayout->addWidget(tabWidgetMain);
@@ -752,10 +773,9 @@ public:
         pushButtonStopOn->setText(QApplication::translate("MainWindow", "Stop", 0, QApplication::UnicodeUTF8));
         pushButtonStartOn->setText(QApplication::translate("MainWindow", "Start", 0, QApplication::UnicodeUTF8));
         tabWidgetMain->setTabText(tabWidgetMain->indexOf(tabeSwitch), QApplication::translate("MainWindow", "eSwitch", 0, QApplication::UnicodeUTF8));
-        pushButtonIniteSwitchClass->setText(QApplication::translate("MainWindow", "initialize", 0, QApplication::UnicodeUTF8));
-        pushButtoneSwitchClassOn->setText(QApplication::translate("MainWindow", "on", 0, QApplication::UnicodeUTF8));
-        pushButtoneSwitchClassOff->setText(QApplication::translate("MainWindow", "off", 0, QApplication::UnicodeUTF8));
-        checkBoxeSwitchClassLamp->setText(QApplication::translate("MainWindow", "lamp", 0, QApplication::UnicodeUTF8));
+        label_17->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
+        label_18->setText(QApplication::translate("MainWindow", "\320\220\320\264\321\200\320\265\321\201", 0, QApplication::UnicodeUTF8));
+        pushButtonIniteSwitchClass->setText(QApplication::translate("MainWindow", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
         tabWidgetMain->setTabText(tabWidgetMain->indexOf(tab), QApplication::translate("MainWindow", "eSwitch class", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

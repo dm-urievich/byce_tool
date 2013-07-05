@@ -10,6 +10,7 @@
 #include <QTimer>
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QVector>
 
 #include "modbus.h"
 #include "busmonitor.h"
@@ -17,6 +18,8 @@
 #include "eswitchwindow.h"
 
 #include "eswitch.h"
+
+#include "module.h"
 
 namespace Ui {
 class MainWindow;
@@ -46,7 +49,10 @@ private:
     eSwitchWindow* eSwitchWindowControl;
     QTimer *eSwitchOnTimer;
 
-    eSwitch *deskLamp;
+    Module *testModule;
+
+    QVector<Hardware*> *hardwareVector;
+    int numModuls_;
 
     void initbuttons();
     void readRegistersRequest(void);
@@ -80,9 +86,6 @@ private slots:
     void eswitchStartOn(void);
     //void eswitchStopOn(void);
     void eSwitchClassInit(void);
-    void eSwitchClassOn(void);
-    void eSwitchClassOff(void);
-    void eSwitchClassGetState(void);
 
 public slots:
     // обработчики кнопок на закладке выключателя

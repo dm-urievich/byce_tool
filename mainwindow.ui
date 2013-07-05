@@ -972,67 +972,51 @@
        <attribute name="title">
         <string>eSwitch class</string>
        </attribute>
-       <widget class="QPushButton" name="pushButtonIniteSwitchClass">
-        <property name="geometry">
-         <rect>
-          <x>140</x>
-          <y>20</y>
-          <width>98</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>initialize</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEditAddreSwitchClass">
+       <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
           <x>20</x>
           <y>20</y>
-          <width>101</width>
-          <height>27</height>
+          <width>430</width>
+          <height>52</height>
          </rect>
         </property>
-       </widget>
-       <widget class="QPushButton" name="pushButtoneSwitchClassOn">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>70</y>
-          <width>101</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>on</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButtoneSwitchClassOff">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>110</y>
-          <width>101</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>off</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="checkBoxeSwitchClassLamp">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>170</y>
-          <width>97</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>lamp</string>
-        </property>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>Название</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_18">
+           <property name="text">
+            <string>Адрес</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLineEdit" name="lineEditNameeSwitchClass">
+           <property name="minimumSize">
+            <size>
+             <width>201</width>
+             <height>0</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEditAddreSwitchClass"/>
+         </item>
+         <item row="1" column="2">
+          <widget class="QPushButton" name="pushButtonIniteSwitchClass">
+           <property name="text">
+            <string>Добавить</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
      </widget>
