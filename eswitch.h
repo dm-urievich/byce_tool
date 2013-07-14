@@ -12,6 +12,9 @@
 
 #include "hardware.h"
 
+#include "modbusregister.h"
+
+
 // конкретный класс выключателя
 // в дальнейшем придумать базовый класс и наследовать выключатель от него
 // пока так, буду понимать что мне нужно и как должно работать
@@ -37,9 +40,7 @@ class eSwitch : public Hardware
 public:
     enum {e_off = 0, e_on = 1};
 
-    //eSwitch(const QString &name, int addr);
-    eSwitch(QWidget *parent = 0, QString name = QString::fromLocal8Bit("eSwitch"), int addr = 1);
-    QString name;
+    eSwitch(QWidget *parent = 0, QString name = "eSwitch", int addr = 1);
 
     void paintEvent(QPaintEvent *);
     QLabel *nameDev;
@@ -48,23 +49,17 @@ public:
 
     int eSwitchOutState;
 
-    //static void setMbPort(modbus_t *port);
-    void setMbPort(modbus_t *port);
-
     void settings(void);
     quint16 getState(void);
     void setState(int state);
     void refresh(void);
 
-    void setMbAddr(int addr);
-    int getMbAddr();
     void on(void);
     void off(void);
 
 private:
     QPushButton *mainButton;
-    int mbAddr;
-    modbus_t *mbPort;
+
     void changeButtonIcon(void);
 
 private slots:

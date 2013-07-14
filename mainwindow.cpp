@@ -129,7 +129,7 @@ void MainWindow::buttonOpenCloseClick()
             ui->statusBar->showMessage("mbPort Open " + portName);
             ui->buttonOpenClose->setText(QString::fromLocal8Bit("Закрыть"));
 
-          //  eSwitch::setMbPort(this->mbPort);
+            Hardware::setMbPort(this->mbPort);
         }
     }
     else {
@@ -138,6 +138,8 @@ void MainWindow::buttonOpenCloseClick()
         this->mbPort = NULL;
         ui->buttonOpenClose->setText(QString::fromLocal8Bit("Открыть"));
         ui->statusBar->showMessage("mbPort Close");
+
+        Hardware::setMbPort(0);
     }
 }
 
@@ -561,7 +563,7 @@ void MainWindow::eSwitchClassInit()
     eswitchDev->move(xPos, 100);
     numModuls_++;
 
-    eswitchDev->setMbPort(this->mbPort);
+    //eswitchDev->setMbPort(this->mbPort);
     eswitchDev->setMbAddr(addr);
 
     hardwareVector->push_back(eswitchDev);

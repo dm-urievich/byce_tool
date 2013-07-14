@@ -30,7 +30,9 @@ SOURCES += main.cpp\
     eswitch.cpp \
     module.cpp \
     software.cpp \
-    hardware.cpp
+    hardware.cpp \
+    modbusregister.cpp \
+    hardwaresettingsdialog.cpp
 
 HEADERS  += mainwindow.h \
     windowoptions.h \
@@ -52,7 +54,9 @@ HEADERS  += mainwindow.h \
     eswitch.h \
     module.h \
     software.h \
-    hardware.h
+    hardware.h \
+    modbusregister.h \
+    hardwaresettingsdialog.h
 
 FORMS    += mainwindow.ui \
     windowoptions.ui \

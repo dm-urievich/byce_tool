@@ -1,9 +1,9 @@
 #include "eswitch.h"
 
-eSwitch::eSwitch(QWidget *parent, QString name, int addr) : Hardware(parent), name(name)
+eSwitch::eSwitch(QWidget *parent, QString name, int addr) : Hardware(parent, name)
 {
 
-    this->mbAddr = addr;
+    mbAddr_ = addr;
 
     readTimer = new QTimer;
     readTimer->start(500);
@@ -23,7 +23,14 @@ eSwitch::eSwitch(QWidget *parent, QString name, int addr) : Hardware(parent), na
     mainButton->show();
     connect(mainButton, SIGNAL(clicked()), this, SLOT(mainButtonClick()));
 
-    this->resize(100, 125);
+    settingsButton = new QPushButton(this);
+    settingsButton->move(0, 125);
+    settingsButton->resize(100, 25);
+    settingsButton->setText(QString::fromLocal8Bit("Настройки"));
+    settingsButton->show();
+    connect(settingsButton, SIGNAL(clicked()), this, SLOT(settingsButtonClick()));
+
+    this->resize(100, 150);
 }
 
 void eSwitch::paintEvent(QPaintEvent *event)
@@ -51,44 +58,25 @@ quint16 eSwitch::getState()
     int regAddr = 0;
     quint16 data;
 
-    modbus_set_slave(this->mbPort, this->mbAddr);
-    modbus_read_registers(this->mbPort, regAddr, 1, &data);
+    data = readReg(regAddr);
 
     return data;
 }
 
-void eSwitch::setMbPort(modbus_t *port)
-{
-    mbPort = port;
-}
-
-void eSwitch::setMbAddr(int addr)
-{
-    this->mbAddr = addr;
-}
-
 void eSwitch::on()
 {
-    int addr;
     int regAddr = 0;
     int data = 1;
 
-    addr = this->mbAddr;
-
-    modbus_set_slave(this->mbPort, addr);
-    modbus_write_register(this->mbPort, regAddr, data);
+    writeReg(regAddr, data);
 }
 
 void eSwitch::off()
 {
-    int addr;
     int regAddr = 0;
     int data = 0;
 
-    addr = this->mbAddr;
-
-    modbus_set_slave(this->mbPort, addr);
-    modbus_write_register(this->mbPort, regAddr, data);
+    writeReg(regAddr, data);
 }
 
 void eSwitch::mainButtonClick(void)
