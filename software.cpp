@@ -1,6 +1,8 @@
 #include "software.h"
 
-Software::Software(QWidget *parent) : Module(parent)
+Software::Software(QWidget *parent, QString n) :
+    Module(parent),
+    name(n)
 {
 
 }

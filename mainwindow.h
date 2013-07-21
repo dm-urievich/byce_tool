@@ -11,6 +11,7 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QVector>
+#include <QtScript>
 
 #include "modbus.h"
 #include "busmonitor.h"
@@ -18,6 +19,7 @@
 #include "eswitchwindow.h"
 
 #include "eswitch.h"
+#include "bycetimer.h"
 
 #include "module.h"
 
@@ -51,7 +53,8 @@ private:
 
     Module *testModule;
 
-    QVector<Hardware*> *hardwareVector;
+    QVector<Hardware*> hardwareVector;
+    QVector<Software*> softwareVector;
     int numModuls_;
 
     void initbuttons();
@@ -86,6 +89,9 @@ private slots:
     void eswitchStartOn(void);
     //void eswitchStopOn(void);
     void eSwitchClassInit(void);
+    void addTimerButtonClick(void);
+    void confirureSignalsModules(void);
+    void tryScriptEngine(void);
 
 public slots:
     // обработчики кнопок на закладке выключателя

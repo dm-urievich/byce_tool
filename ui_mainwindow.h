@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sat Jul 13 16:25:54 2013
+** Created: Thu Jul 18 22:04:51 2013
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -128,13 +128,16 @@ public:
     QPushButton *pushButtonStopOn;
     QPushButton *pushButtonStartOn;
     QWidget *tab;
-    QWidget *widget1;
+    QWidget *layoutWidget3;
     QGridLayout *gridLayout_4;
     QLabel *label_17;
     QLabel *label_18;
     QLineEdit *lineEditNameeSwitchClass;
     QLineEdit *lineEditAddreSwitchClass;
     QPushButton *pushButtonIniteSwitchClass;
+    QPushButton *pushButtonConfigureSignals;
+    QPushButton *pushButtonAddTimer;
+    QPushButton *pushButtonStartScript;
     QMenuBar *menuBar;
     QStatusBar *statusBar;
     QToolBar *mainToolBar;
@@ -143,7 +146,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(656, 440);
+        MainWindow->resize(717, 440);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -671,39 +674,54 @@ public:
         tabWidgetMain->addTab(tabeSwitch, QString());
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
-        widget1 = new QWidget(tab);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        widget1->setGeometry(QRect(20, 20, 430, 52));
-        gridLayout_4 = new QGridLayout(widget1);
+        layoutWidget3 = new QWidget(tab);
+        layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(20, 20, 652, 52));
+        gridLayout_4 = new QGridLayout(layoutWidget3);
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         gridLayout_4->setContentsMargins(0, 0, 0, 0);
-        label_17 = new QLabel(widget1);
+        label_17 = new QLabel(layoutWidget3);
         label_17->setObjectName(QString::fromUtf8("label_17"));
 
         gridLayout_4->addWidget(label_17, 0, 0, 1, 1);
 
-        label_18 = new QLabel(widget1);
+        label_18 = new QLabel(layoutWidget3);
         label_18->setObjectName(QString::fromUtf8("label_18"));
 
         gridLayout_4->addWidget(label_18, 0, 1, 1, 1);
 
-        lineEditNameeSwitchClass = new QLineEdit(widget1);
+        lineEditNameeSwitchClass = new QLineEdit(layoutWidget3);
         lineEditNameeSwitchClass->setObjectName(QString::fromUtf8("lineEditNameeSwitchClass"));
         lineEditNameeSwitchClass->setMinimumSize(QSize(201, 0));
 
         gridLayout_4->addWidget(lineEditNameeSwitchClass, 1, 0, 1, 1);
 
-        lineEditAddreSwitchClass = new QLineEdit(widget1);
+        lineEditAddreSwitchClass = new QLineEdit(layoutWidget3);
         lineEditAddreSwitchClass->setObjectName(QString::fromUtf8("lineEditAddreSwitchClass"));
 
         gridLayout_4->addWidget(lineEditAddreSwitchClass, 1, 1, 1, 1);
 
-        pushButtonIniteSwitchClass = new QPushButton(widget1);
+        pushButtonIniteSwitchClass = new QPushButton(layoutWidget3);
         pushButtonIniteSwitchClass->setObjectName(QString::fromUtf8("pushButtonIniteSwitchClass"));
 
         gridLayout_4->addWidget(pushButtonIniteSwitchClass, 1, 2, 1, 1);
+
+        pushButtonConfigureSignals = new QPushButton(layoutWidget3);
+        pushButtonConfigureSignals->setObjectName(QString::fromUtf8("pushButtonConfigureSignals"));
+
+        gridLayout_4->addWidget(pushButtonConfigureSignals, 1, 4, 1, 1);
+
+        pushButtonAddTimer = new QPushButton(layoutWidget3);
+        pushButtonAddTimer->setObjectName(QString::fromUtf8("pushButtonAddTimer"));
+
+        gridLayout_4->addWidget(pushButtonAddTimer, 1, 3, 1, 1);
+
+        pushButtonStartScript = new QPushButton(layoutWidget3);
+        pushButtonStartScript->setObjectName(QString::fromUtf8("pushButtonStartScript"));
+
+        gridLayout_4->addWidget(pushButtonStartScript, 1, 5, 1, 1);
 
         tabWidgetMain->addTab(tab, QString());
 
@@ -712,7 +730,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 656, 25));
+        menuBar->setGeometry(QRect(0, 0, 717, 25));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
@@ -776,6 +794,9 @@ public:
         label_17->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
         label_18->setText(QApplication::translate("MainWindow", "\320\220\320\264\321\200\320\265\321\201", 0, QApplication::UnicodeUTF8));
         pushButtonIniteSwitchClass->setText(QApplication::translate("MainWindow", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
+        pushButtonConfigureSignals->setText(QApplication::translate("MainWindow", "\320\235\320\260\321\201\321\202\321\200\320\276\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
+        pushButtonAddTimer->setText(QApplication::translate("MainWindow", "AddTimer", 0, QApplication::UnicodeUTF8));
+        pushButtonStartScript->setText(QApplication::translate("MainWindow", "Script", 0, QApplication::UnicodeUTF8));
         tabWidgetMain->setTabText(tabWidgetMain->indexOf(tab), QApplication::translate("MainWindow", "eSwitch class", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

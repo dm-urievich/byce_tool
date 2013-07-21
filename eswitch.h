@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QObject>
 #include <QTimer>
+#include <QRadioButton>
 
 #include "hardware.h"
 
@@ -38,8 +39,6 @@ class eSwitch : public Hardware
     Q_OBJECT
 
 public:
-    enum {e_off = 0, e_on = 1};
-
     eSwitch(QWidget *parent = 0, QString name = "eSwitch", int addr = 1);
 
     void paintEvent(QPaintEvent *);
@@ -47,18 +46,25 @@ public:
 
     QTimer *readTimer;
 
-    int eSwitchOutState;
+    bool eSwitchOutState;
+    bool dInState;
 
     void settings(void);
-    quint16 getState(void);
+    bool getState(void);
     void setState(int state);
     void refresh(void);
 
+public slots:
     void on(void);
     void off(void);
 
+signals:
+    void dInRaise(void);
+    void dInFall(void);
+
 private:
     QPushButton *mainButton;
+    QRadioButton *dInStateButton;
 
     void changeButtonIcon(void);
 

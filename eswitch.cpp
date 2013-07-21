@@ -13,7 +13,8 @@ eSwitch::eSwitch(QWidget *parent, QString name, int addr) : Hardware(parent, nam
     nameDev->setText(name);
     nameDev->show();
 
-    eSwitchOutState = e_off;
+    eSwitchOutState = false;
+    dInState = false;
 
     mainButton = new QPushButton(this);
     mainButton->move(0, 25);
@@ -23,10 +24,16 @@ eSwitch::eSwitch(QWidget *parent, QString name, int addr) : Hardware(parent, nam
     mainButton->show();
     connect(mainButton, SIGNAL(clicked()), this, SLOT(mainButtonClick()));
 
+    dInStateButton = new QRadioButton(this);
+    dInStateButton->move(25, 125);
+    dInStateButton->resize(25, 25);
+    //dInStateButton->setDisabled(true);
+    dInStateButton->show();
+
     settingsButton = new QPushButton(this);
     settingsButton->move(0, 125);
-    settingsButton->resize(100, 25);
-    settingsButton->setText(QString::fromLocal8Bit("Настройки"));
+    settingsButton->resize(25, 25);
+    settingsButton->setText(QString::fromLocal8Bit("..."));
     settingsButton->show();
     connect(settingsButton, SIGNAL(clicked()), this, SLOT(settingsButtonClick()));
 
@@ -44,23 +51,39 @@ void eSwitch::paintEvent(QPaintEvent *event)
 
 void eSwitch::readTimerEvent(void)
 {
-    if (getState() == 1) {
-        eSwitchOutState = e_on;
+    bool prevState = dInState;
+    int regAddr = 0;
+    quint16 data[3];
+
+    //data = readReg(regAddr);
+    readRegisters(regAddr, 3, data);
+
+    if (data[0] == 1) {
+        eSwitchOutState = true;
     }
     else {
-        eSwitchOutState = e_off;
+        eSwitchOutState = false;
     }
+
+    if (data[2] == 1)
+        dInState = true;
+    else
+        dInState = false;
+
+    dInStateButton->setChecked(dInState);
+
+    if (!dInState && prevState)     // задний фронт
+        emit dInFall();
+    else
+        if (dInState && !prevState) // передний фронт
+            emit dInRaise();
+
     changeButtonIcon();
 }
 
-quint16 eSwitch::getState()
+bool eSwitch::getState()
 {
-    int regAddr = 0;
-    quint16 data;
-
-    data = readReg(regAddr);
-
-    return data;
+    return eSwitchOutState;
 }
 
 void eSwitch::on()
@@ -81,29 +104,31 @@ void eSwitch::off()
 
 void eSwitch::mainButtonClick(void)
 {
-    if (eSwitchOutState == e_off) {
-        eSwitchOutState = e_on;
+  /*  if (eSwitchOutState) {
+        eSwitchOutState = false;
     }
     else {
-        eSwitchOutState = e_off;
+        eSwitchOutState = true;
     }
+    */
+    eSwitchOutState != eSwitchOutState;
 
     changeButtonIcon();
 
-    if (eSwitchOutState == e_off) {
-        off();
+    if (eSwitchOutState) {
+        on();
     }
     else {
-        on();
+        off();
     }
 }
 
 void eSwitch::changeButtonIcon(void)
 {
-    if (eSwitchOutState == e_off) {
-         mainButton->setIcon(QIcon(":/img/lampOff.png"));
+    if (eSwitchOutState) {
+        mainButton->setIcon(QIcon(":/img/lampOn.png"));
     }
     else {
-         mainButton->setIcon(QIcon(":/img/lampOn.png"));
+        mainButton->setIcon(QIcon(":/img/lampOff.png"));
     }
 }

@@ -14,9 +14,9 @@ void Module::settings()
 
 void Module::paintEvent(QPaintEvent *event)
 {
-    QPainter paint(this);
+//    QPainter paint(this);
 
     //paint.setPen(palette().foreground().color());
-    paint.drawLine(0, 0, 10, 10);
+//    paint.drawLine(0, 0, 10, 10);
 
 }

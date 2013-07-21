@@ -21,7 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mbReadRequestTimer = new QTimer;
     eSwitchOnTimer = new QTimer;
 
-    hardwareVector = new QVector<Hardware*>;
+  //  hardwareVector = new QVector<eSwitch*>;
+   // softwareVector = new QVector<Software*>;
     numModuls_ = 0;
 
     qDebug() << "Hello debug";
@@ -84,6 +85,10 @@ void MainWindow::initbuttons()
     connect(ui->pushButtonStopOn, SIGNAL(clicked()), this, SLOT(eswitchOff()));
     connect(ui->pushButtonIniteSwitchClass, SIGNAL(clicked()), this, SLOT(eSwitchClassInit()));
  //   connect(this->eSwitchOnTimer, SIGNAL(timeout()), this, SLOT(eswitchOff()));
+
+    connect(ui->pushButtonAddTimer, SIGNAL(clicked()), this, SLOT(addTimerButtonClick()));
+    connect(ui->pushButtonConfigureSignals, SIGNAL(clicked()), this, SLOT(confirureSignalsModules()));
+    connect(ui->pushButtonStartScript, SIGNAL(clicked()), this, SLOT(tryScriptEngine()));
 }
 
 void MainWindow::showWindowOption()
@@ -566,7 +571,39 @@ void MainWindow::eSwitchClassInit()
     //eswitchDev->setMbPort(this->mbPort);
     eswitchDev->setMbAddr(addr);
 
-    hardwareVector->push_back(eswitchDev);
+    hardwareVector.push_back(eswitchDev);
+}
+
+void MainWindow::addTimerButtonClick()
+{
+    int xPos = 0;
+    QString name;
+    ByceTimer *byceTimer;
+
+    name = ui->lineEditNameeSwitchClass->text();
+    byceTimer = new ByceTimer(ui->tab, name);
+    // помещаем девайс на форму
+    xPos = numModuls_ * 125 + 10;
+    byceTimer->move(xPos, 100);
+    numModuls_++;
+
+    softwareVector.push_back(byceTimer);
+}
+
+void MainWindow::confirureSignalsModules()
+{
+    ByceTimer *byceTimer = (ByceTimer*) softwareVector[0];
+    eSwitch *eswitchDev = (eSwitch*) hardwareVector[0];
+
+    connect(eswitchDev, SIGNAL(dInRaise()), byceTimer, SLOT(startTimerButton()));
+    connect(byceTimer, SIGNAL(byceTimeOut()), eswitchDev, SLOT(off()));
+}
+
+void MainWindow::tryScriptEngine()
+{
+    QScriptEngine engine;
+    qDebug() << "the magic number is:" << engine.evaluate("1 + 2").toNumber();
+    engine.evaluate("ui->pushButtonStartScript->resize(10, 10)");
 }
 
 // проверка адреса и данных на правельность ввода

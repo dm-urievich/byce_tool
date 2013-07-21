@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'eswitch.h'
 **
-** Created: Sat Jul 13 16:38:06 2013
+** Created: Thu Jul 18 22:05:16 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,22 +23,29 @@ static const uint qt_meta_data_eSwitch[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       2,       // signalCount
+
+ // signals: signature, parameters, type, tag, flags
+       9,    8,    8,    8, 0x05,
+      20,    8,    8,    8, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-       9,    8,    8,    8, 0x08,
-      27,    8,    8,    8, 0x08,
+      30,    8,    8,    8, 0x0a,
+      35,    8,    8,    8, 0x0a,
+      41,    8,    8,    8, 0x08,
+      59,    8,    8,    8, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_eSwitch[] = {
-    "eSwitch\0\0mainButtonClick()\0readTimerEvent()\0"
+    "eSwitch\0\0dInRaise()\0dInFall()\0on()\0"
+    "off()\0mainButtonClick()\0readTimerEvent()\0"
 };
 
 void eSwitch::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -47,8 +54,12 @@ void eSwitch::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         Q_ASSERT(staticMetaObject.cast(_o));
         eSwitch *_t = static_cast<eSwitch *>(_o);
         switch (_id) {
-        case 0: _t->mainButtonClick(); break;
-        case 1: _t->readTimerEvent(); break;
+        case 0: _t->dInRaise(); break;
+        case 1: _t->dInFall(); break;
+        case 2: _t->on(); break;
+        case 3: _t->off(); break;
+        case 4: _t->mainButtonClick(); break;
+        case 5: _t->readTimerEvent(); break;
         default: ;
         }
     }
@@ -87,10 +98,22 @@ int eSwitch::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 6;
     }
     return _id;
+}
+
+// SIGNAL 0
+void eSwitch::dInRaise()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, 0);
+}
+
+// SIGNAL 1
+void eSwitch::dInFall()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, 0);
 }
 QT_END_MOC_NAMESPACE

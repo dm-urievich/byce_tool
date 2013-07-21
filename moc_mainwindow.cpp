@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Sat Jul 13 16:38:05 2013
+** Created: Thu Jul 18 22:05:09 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -44,8 +44,11 @@ static const uint qt_meta_data_MainWindow[] = {
      230,   11,   11,   11, 0x08,
      256,   11,   11,   11, 0x08,
      273,   11,   11,   11, 0x08,
-     292,   11,   11,   11, 0x0a,
-     304,   11,   11,   11, 0x0a,
+     292,   11,   11,   11, 0x08,
+     314,   11,   11,   11, 0x08,
+     340,   11,   11,   11, 0x08,
+     358,   11,   11,   11, 0x0a,
+     370,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -59,8 +62,9 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "registersReadDeviceId()\0"
     "registersWriteRegister()\0"
     "registersClearRegisters()\0eswitchStartOn()\0"
-    "eSwitchClassInit()\0eswitchOn()\0"
-    "eswitchOff()\0"
+    "eSwitchClassInit()\0addTimerButtonClick()\0"
+    "confirureSignalsModules()\0tryScriptEngine()\0"
+    "eswitchOn()\0eswitchOff()\0"
 };
 
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -82,8 +86,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 10: _t->registersClearRegisters(); break;
         case 11: _t->eswitchStartOn(); break;
         case 12: _t->eSwitchClassInit(); break;
-        case 13: _t->eswitchOn(); break;
-        case 14: _t->eswitchOff(); break;
+        case 13: _t->addTimerButtonClick(); break;
+        case 14: _t->confirureSignalsModules(); break;
+        case 15: _t->tryScriptEngine(); break;
+        case 16: _t->eswitchOn(); break;
+        case 17: _t->eswitchOff(); break;
         default: ;
         }
     }
@@ -121,9 +128,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 18;
     }
     return _id;
 }

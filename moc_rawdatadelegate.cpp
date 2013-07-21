@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'rawdatadelegate.h'
 **
-** Created: Sat Jul 13 16:27:16 2013
+** Created: Thu Jul 18 22:05:12 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.3)
 **
 ** WARNING! All changes made in this file will be lost!

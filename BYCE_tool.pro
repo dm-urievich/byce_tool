@@ -13,6 +13,8 @@ TEMPLATE = app
 
 CONFIG += serialport
 
+QT += script
+
 SOURCES += main.cpp\
         mainwindow.cpp \
     windowoptions.cpp \
@@ -32,7 +34,8 @@ SOURCES += main.cpp\
     software.cpp \
     hardware.cpp \
     modbusregister.cpp \
-    hardwaresettingsdialog.cpp
+    hardwaresettingsdialog.cpp \
+    bycetimer.cpp
 
 HEADERS  += mainwindow.h \
     windowoptions.h \
@@ -56,7 +59,8 @@ HEADERS  += mainwindow.h \
     software.h \
     hardware.h \
     modbusregister.h \
-    hardwaresettingsdialog.h
+    hardwaresettingsdialog.h \
+    bycetimer.h
 
 FORMS    += mainwindow.ui \
     windowoptions.ui \
