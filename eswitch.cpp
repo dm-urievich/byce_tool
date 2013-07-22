@@ -104,14 +104,12 @@ void eSwitch::off()
 
 void eSwitch::mainButtonClick(void)
 {
-  /*  if (eSwitchOutState) {
+    if (eSwitchOutState) {
         eSwitchOutState = false;
     }
     else {
         eSwitchOutState = true;
     }
-    */
-    eSwitchOutState != eSwitchOutState;
 
     changeButtonIcon();
 
