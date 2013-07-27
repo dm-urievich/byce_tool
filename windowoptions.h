@@ -3,17 +3,17 @@
 
 #include <QDialog>
 #include <QSettings>
-#include <QtAddOnSerialPort/serialport-global.h>
+#include <QtSerialPort/qserialportglobal.h>
 
 namespace Ui {
 class windowOptions;
 }
 
-QT_BEGIN_NAMESPACE_SERIALPORT
+QT_BEGIN_NAMESPACE
 class SerialPort;
-QT_END_NAMESPACE_SERIALPORT
+QT_END_NAMESPACE
 
-QT_USE_NAMESPACE_SERIALPORT
+QT_USE_NAMESPACE
 
 class windowOptions : public QDialog
 {
