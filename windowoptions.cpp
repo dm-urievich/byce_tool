@@ -3,8 +3,8 @@
 
 #include <QtDebug>
 #include <QSettings>
-#include <QtAddOnSerialPort/serialport.h>
-#include <QtAddOnSerialPort/serialportinfo.h>
+#include <QtSerialPort/QSerialPort>
+#include <QtSerialPort/QSerialPortInfo>
 
 windowOptions::windowOptions(QWidget *parent, QSettings *settings) :
     QDialog(parent),
@@ -43,11 +43,11 @@ void windowOptions::buttonApplayOptionsClick()
 void windowOptions::fillPortsInfo()
 {
     ui->comboBoxPortName->clear();
-    foreach (const SerialPortInfo &info, SerialPortInfo::availablePorts()) {
+    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
         QStringList list;
         list << info.portName() << info.description()
-             << info.manufacturer() << info.systemLocation()
-             << info.vendorIdentifier() << info.productIdentifier();
+             << info.manufacturer();// << info.systemLocation()
+             //<< info.vendorIdentifier() << info.productIdentifier();
 
         ui->comboBoxPortName->addItem(list.first(), list);
     }
