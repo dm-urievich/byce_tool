@@ -5,6 +5,9 @@ Hardware::Hardware(QWidget *parent, QString n) :
       Module(parent),
       name(n)
 {
+    enableReadCheck = new QCheckBox(parent);
+    enableReadCheck->setChecked(true);
+
     //mbPort_ = 0;
 }
 
@@ -43,16 +46,21 @@ void Hardware::readReg(ModbusRegister &reg)
 // чтение группы регистров
 void Hardware::readRegisters(int regAddr, int cont, quint16 *data)
 {
-    if (mbPort_ != 0) {
+    if (mbPort_ != 0 && enableReadCheck->isChecked()) {
         modbus_set_slave(mbPort_, mbAddr_);
         modbus_read_registers(mbPort_, regAddr, cont, data);
+    }
+    else {
+        for (int i = 0; i < cont; i++) {
+            data[i] = 0;
+        }
     }
 }
 
 // запись одного регистра
 void Hardware::writeReg(int regAddr, quint16 data)
 {
-    if (mbPort_ != 0) {
+    if (mbPort_ != 0 && enableReadCheck->isChecked()) {
         modbus_set_slave(mbPort_, mbAddr_);
         modbus_write_register(mbPort_, regAddr, data);
     }
@@ -60,7 +68,7 @@ void Hardware::writeReg(int regAddr, quint16 data)
 
 void Hardware::writeReg(ModbusRegister &reg)
 {
-    if (mbPort_ != 0) {
+    if (mbPort_ != 0 && enableReadCheck->isChecked()) {
         modbus_set_slave(mbPort_, mbAddr_);
         modbus_write_register(mbPort_, reg.addr, reg.data_);
     }

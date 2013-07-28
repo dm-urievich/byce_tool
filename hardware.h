@@ -2,6 +2,7 @@
 #define HARDWARE_H
 
 #include <QPushButton>
+#include <QCheckBox>
 
 #include "module.h"
 #include "modbus.h"
@@ -23,6 +24,7 @@ public:
     Hardware(QWidget *parent = 0, QString n = "HardwareModule");
 
     QString name;
+    QCheckBox* enableReadCheck;
     static void setMbPort(modbus_t *port);
 
     void setMbAddr(int addr);

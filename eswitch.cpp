@@ -30,12 +30,26 @@ eSwitch::eSwitch(QWidget *parent, QString name, int addr) : Hardware(parent, nam
     //dInStateButton->setDisabled(true);
     dInStateButton->show();
 
+    // кнопка с настройками
     settingsButton = new QPushButton(this);
     settingsButton->move(0, 125);
     settingsButton->resize(25, 25);
     settingsButton->setText(QString::fromLocal8Bit("..."));
     settingsButton->show();
     connect(settingsButton, SIGNAL(clicked()), this, SLOT(settingsButtonClick()));
+
+    // кнопа включения/выключения обмена
+    enableReadCheck->setParent(this);
+    enableReadCheck->resize(20,25);
+    enableReadCheck->move(80, 125);
+    enableReadCheck->show();
+
+    adcDataLable = new QLabel(this);
+    adcDataLable->move(50, 125);
+    adcDataLable->resize(30, 25);
+    adcDataLable->setAlignment(Qt::AlignRight);
+    adcDataLable->setText("0");
+    adcDataLable->show();
 
     this->resize(100, 150);
 }
@@ -53,10 +67,11 @@ void eSwitch::readTimerEvent(void)
 {
     bool prevState = dInState;
     int regAddr = 0;
-    quint16 data[3];
+    int adcData = 0;
+    quint16 data[6];
 
     //data = readReg(regAddr);
-    readRegisters(regAddr, 3, data);
+    readRegisters(regAddr, 6, data);
 
     if (data[0] == 1) {
         eSwitchOutState = true;
@@ -79,6 +94,10 @@ void eSwitch::readTimerEvent(void)
             emit dInRaise();
 
     changeButtonIcon();
+
+    // заполняем данные с АЦП
+    adcData = data[5];
+    adcDataLable->setText(QString::number(adcData));
 }
 
 bool eSwitch::getState()

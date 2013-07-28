@@ -65,6 +65,7 @@ signals:
 private:
     QPushButton *mainButton;
     QRadioButton *dInStateButton;
+    QLabel *adcDataLable;
 
     void changeButtonIcon(void);
 
