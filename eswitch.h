@@ -48,11 +48,13 @@ public:
 
     bool eSwitchOutState;
     bool dInState;
+    int adcData;
 
     void settings(void);
     bool getState(void);
     void setState(int state);
     void refresh(void);
+    void generateXml(QFile *file);
 
 public slots:
     void on(void);
@@ -66,6 +68,9 @@ private:
     QPushButton *mainButton;
     QRadioButton *dInStateButton;
     QLabel *adcDataLable;
+
+    bool raiseEvent_;
+    bool fallEvent_;
 
     void changeButtonIcon(void);
 

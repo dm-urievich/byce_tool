@@ -14,6 +14,7 @@ TEMPLATE = app
 CONFIG += serialport
 
 QT += script
+QT += xml
 
 SOURCES += main.cpp\
         mainwindow.cpp \

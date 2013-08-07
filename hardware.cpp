@@ -79,3 +79,24 @@ void Hardware::settingsButtonClick(void)
     HardwareSettingsDialog settingsWindow(0, "eSwitch.h", this);
 }
 
+void Hardware::generateXml(QFile* file)
+{
+    QTextStream out(file);
+
+    QDomDocument hardware;
+    QDomElement root = hardware.createElement("hardware");
+    QDomElement addr = hardware.createElement("mbAddr");
+    QDomElement nameDev = hardware.createElement("name");
+    QDomText nameModule = hardware.createTextNode(name);
+    QDomText addrModule = hardware.createTextNode(QString::number(mbAddr_));
+
+    hardware.appendChild(root);
+    root.appendChild(addr);
+    root.appendChild(nameDev);
+    addr.appendChild(addrModule);
+    nameDev.appendChild(nameModule);
+
+    hardware.save(out, 4);
+}
+
+

@@ -3,10 +3,14 @@
 
 #include <QPushButton>
 #include <QCheckBox>
+#include <QDomDocument>
+#include <QFile>
+#include <QTextStream>
 
 #include "module.h"
 #include "modbus.h"
 #include "modbusregister.h"
+
 //#include "hardwaresettingsdialog.h"
 
 /*
@@ -34,6 +38,8 @@ public:
     void writeReg(int regAddr, quint16 data);
     void writeReg(ModbusRegister& reg);
 
+    void virtual generateXml(QFile *file);
+
 protected:
     static modbus_t *mbPort_;
     void readRegisters(int regAddr, int cont, quint16* data);
@@ -43,6 +49,7 @@ protected:
 
 protected slots:
     void settingsButtonClick(void);
+
 private:
 
 
