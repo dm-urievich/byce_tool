@@ -16,12 +16,12 @@
 #include "modbus.h"
 #include "busmonitor.h"
 #include "modbusadapter.h"
-#include "eswitchwindow.h"
 
 #include "eswitch.h"
 #include "bycetimer.h"
 
 #include "module.h"
+#include "corebycetoolthread.h"
 #include "transferthread.h"
 
 namespace Ui {
@@ -49,15 +49,13 @@ private:
 
     QTimer *mbReadRequestTimer;
 
-    eSwitchWindow* eSwitchWindowControl;
     QTimer *eSwitchOnTimer;
+
+    TransferThread* transferHardwareModules;
+    CoreByceToolThread* coreThread;
 
     Module *testModule;
 
-    TransferThread* transferHardwareModules;
-
-    QVector<Hardware*> hardwareVector;
-    QVector<Software*> softwareVector;
     int numModuls_;
 
     void initbuttons();

@@ -29,7 +29,6 @@ SOURCES += main.cpp\
     3rdparty/qModMaster/busmonitor.cpp \
     3rdparty/qModMaster/registersmodel.cpp \
     3rdparty/qModMaster/eutils.cpp \
-    eswitchwindow.cpp \
     eswitch.cpp \
     module.cpp \
     software.cpp \
@@ -38,7 +37,8 @@ SOURCES += main.cpp\
     hardwaresettingsdialog.cpp \
     bycetimer.cpp \
     transferthread.cpp \
-    modulegui.cpp
+    modulegui.cpp \
+    corebycetoolthread.cpp
 
 HEADERS  += mainwindow.h \
     windowoptions.h \
@@ -56,7 +56,6 @@ HEADERS  += mainwindow.h \
     3rdparty/qModMaster/busmonitor.h \
     3rdparty/qModMaster/registersmodel.h \
     3rdparty/qModMaster/eutils.h \
-    eswitchwindow.h \
     eswitch.h \
     module.h \
     software.h \
@@ -65,7 +64,8 @@ HEADERS  += mainwindow.h \
     hardwaresettingsdialog.h \
     bycetimer.h \
     transferthread.h \
-    modulegui.h
+    modulegui.h \
+    corebycetoolthread.h
 
 FORMS    += mainwindow.ui \
     windowoptions.ui \

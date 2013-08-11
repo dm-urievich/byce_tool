@@ -13,17 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    eSwitchWindowControl = new eSwitchWindow;
-
     portSettings = new QSettings("BYCE_tool.ini", QSettings::IniFormat);
     windowoption = new windowOptions(this, portSettings);
 
     mbReadRequestTimer = new QTimer;
     eSwitchOnTimer = new QTimer;
 
-    transferHardwareModules = new TransferThread(&hardwareVector);
-  //  hardwareVector = new QVector<eSwitch*>;
-   // softwareVector = new QVector<Software*>;
+    //transferHardwareModules = new TransferThread(&hardwareVector);
+    coreThread = new CoreByceToolThread;
+
     numModuls_ = 0;
 
     qDebug() << "Hello debug";
@@ -55,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->radioButtonHex, SIGNAL(clicked()), this, SLOT(lineEditChenged()));
     connect(ui->radioButtonInt, SIGNAL(clicked()), this, SLOT(lineEditChenged()));
 
-    connect(transferHardwareModules, SIGNAL(transferTime(int)), ui->lcdNumberTimeTransfer, SLOT(display(int)));
+    //connect(transferHardwareModules, SIGNAL(transferTime(int)), ui->lcdNumberTimeTransfer, SLOT(display(int)));
 
 }
 
@@ -81,9 +79,6 @@ void MainWindow::initbuttons()
     // закладка работы с переключателем
     connect(ui->pushButtonSwitchOn, SIGNAL(clicked()), this, SLOT(eswitchOn()));
     connect(ui->pushButtonSwitchOff, SIGNAL(clicked()), this, SLOT(eswitchOff()));
-    connect(ui->pushButtonSwitcherWindow, SIGNAL(clicked()), eSwitchWindowControl, SLOT(show()));
-    connect(eSwitchWindowControl, SIGNAL(switchOn()), this, SLOT(eswitchOn()));
-    connect(eSwitchWindowControl, SIGNAL(switchOff()), this, SLOT(eswitchOff()));
     connect(ui->pushButtonStartOn, SIGNAL(clicked()), this, SLOT(eswitchStartOn()));
     connect(ui->pushButtonStopOn, SIGNAL(clicked()), this, SLOT(eswitchOff()));
     connect(ui->pushButtonIniteSwitchClass, SIGNAL(clicked()), this, SLOT(eSwitchClassInit()));
@@ -93,8 +88,8 @@ void MainWindow::initbuttons()
     connect(ui->pushButtonConfigureSignals, SIGNAL(clicked()), this, SLOT(confirureSignalsModules()));
     connect(ui->pushButtonStartScript, SIGNAL(clicked()), this, SLOT(tryScriptEngine()));
 
-    connect(ui->pushButtonStartThread, SIGNAL(clicked()), transferHardwareModules, SLOT(start()));
-    connect(ui->spinBoxPeriod, SIGNAL(valueChanged(int)), transferHardwareModules, SLOT(setPeriod(int)));
+    connect(ui->pushButtonStartThread, SIGNAL(clicked()), coreThread, SLOT(start()));
+    //connect(ui->spinBoxPeriod, SIGNAL(valueChanged(int)), transferHardwareModules, SLOT(setPeriod(int)));
 }
 
 void MainWindow::showWindowOption()
@@ -578,8 +573,9 @@ void MainWindow::eSwitchClassInit()
     //eswitchDev->setMbPort(this->mbPort);
     eswitchDev->setMbAddr(addr);
 
-    hardwareVector.push_back(eswitchDev);
-    eswitchDev->moveToThread(transferHardwareModules);
+    //hardwareVector.push_back(eswitchDev);
+
+    coreThread->createNewHardwareModule(eswitchDev);
 }
 
 void MainWindow::addTimerButtonClick()
@@ -595,11 +591,12 @@ void MainWindow::addTimerButtonClick()
     //byceTimer->move(xPos, 100);
     numModuls_++;
 
-    softwareVector.push_back(byceTimer);
+    //softwareVector.push_back(byceTimer);
 }
 
 void MainWindow::confirureSignalsModules()
 {
+    /*
     ByceTimer *byceTimer = (ByceTimer*) softwareVector[0];
     eSwitch *eswitchDev = (eSwitch*) hardwareVector[0];
     Module *moduleClass = new Module;
@@ -614,6 +611,7 @@ void MainWindow::confirureSignalsModules()
     moduleClass = (Module*) byceTimer;
     moduleClass->settings();
     delete moduleClass;
+    */
 }
 
 void MainWindow::tryScriptEngine()
