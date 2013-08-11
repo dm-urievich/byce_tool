@@ -54,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->radioButtonInt, SIGNAL(clicked()), this, SLOT(lineEditChenged()));
 
     //connect(transferHardwareModules, SIGNAL(transferTime(int)), ui->lcdNumberTimeTransfer, SLOT(display(int)));
+    connect(coreThread, SIGNAL(guiRefresh()), this, SLOT(refreshModulesGui()));
 
 }
 
@@ -548,6 +549,7 @@ void MainWindow::eSwitchClassInit()
     bool ok;
     QString str, name;
     eSwitch *eswitchDev;
+    ModbusSwitchGui *moduleGui;
 
     if (ui->lineEditAddreSwitchClass->text().isEmpty()) {
         str = QInputDialog::getText(this, QString::fromLocal8Bit("Не задан адрес устройства"),
@@ -565,16 +567,18 @@ void MainWindow::eSwitchClassInit()
     addr = ui->lineEditAddreSwitchClass->text().toInt();
     //eswitchDev = new eSwitch(ui->tab, name, addr);
     eswitchDev = new eSwitch(0, name, addr);
+    moduleGui = new ModbusSwitchGui(name, addr, ui->tab);
+    eswitchDev->idModule = moduleGui->idModule = qrand ();
+
     // помещаем девайс на форму
     xPos = numModuls_ * 125 + 10;
-    //eswitchDev->move(xPos, 100);
+    moduleGui->move(xPos, 100);
     numModuls_++;
+
+    moduleGuiVector.push_back(moduleGui);
 
     //eswitchDev->setMbPort(this->mbPort);
     eswitchDev->setMbAddr(addr);
-
-    //hardwareVector.push_back(eswitchDev);
-
     coreThread->createNewHardwareModule(eswitchDev);
 }
 
@@ -612,6 +616,15 @@ void MainWindow::confirureSignalsModules()
     moduleClass->settings();
     delete moduleClass;
     */
+}
+
+void MainWindow::refreshModulesGui()
+{
+    QFile outFile("moduleEvents.xml");
+    if (outFile.open(QIODevice::ReadOnly)) {
+        // парсим xml файл с событиями
+
+    }
 }
 
 void MainWindow::tryScriptEngine()

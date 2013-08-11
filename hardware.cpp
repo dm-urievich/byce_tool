@@ -72,10 +72,8 @@ void Hardware::writeReg(ModbusRegister &reg)
     }
 }
 
-void Hardware::generateXml(QFile* file)
+void Hardware::generateXml(QTextStream &out)
 {
-    QTextStream out(file);
-
     QDomDocument hardware;
     QDomElement root = hardware.createElement("hardware");
     QDomElement addr = hardware.createElement("mbAddr");

@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     bycetimer.cpp \
     transferthread.cpp \
     modulegui.cpp \
-    corebycetoolthread.cpp
+    corebycetoolthread.cpp \
+    modbusswitchgui.cpp
 
 HEADERS  += mainwindow.h \
     windowoptions.h \
@@ -65,7 +66,8 @@ HEADERS  += mainwindow.h \
     bycetimer.h \
     transferthread.h \
     modulegui.h \
-    corebycetoolthread.h
+    corebycetoolthread.h \
+    modbusswitchgui.h
 
 FORMS    += mainwindow.ui \
     windowoptions.ui \

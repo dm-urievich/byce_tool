@@ -41,7 +41,7 @@ public:
 
     virtual bool refresh() = 0;
     virtual bool isEvent() = 0;
-    virtual void generateXml(QFile *file);
+    virtual void generateXml(QTextStream &out);
 
 protected:
     static modbus_t *mbPort_;

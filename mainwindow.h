@@ -20,6 +20,9 @@
 #include "eswitch.h"
 #include "bycetimer.h"
 
+#include "modulegui.h"
+#include "modbusswitchgui.h"
+
 #include "module.h"
 #include "corebycetoolthread.h"
 #include "transferthread.h"
@@ -53,6 +56,8 @@ private:
 
     TransferThread* transferHardwareModules;
     CoreByceToolThread* coreThread;
+
+    QVector<ModuleGui*> moduleGuiVector;
 
     Module *testModule;
 
@@ -88,16 +93,17 @@ private slots:
 
     // обработчики кнопок на закладке выключателя
     void eswitchStartOn(void);
-    //void eswitchStopOn(void);
+    void eswitchOn(void);
+    void eswitchOff(void);
+
     void eSwitchClassInit(void);
     void addTimerButtonClick(void);
     void confirureSignalsModules(void);
     void tryScriptEngine(void);
 
+    void refreshModulesGui(void);
+
 public slots:
-    // обработчики кнопок на закладке выключателя
-    void eswitchOn(void);
-    void eswitchOff(void);
 
 };
 

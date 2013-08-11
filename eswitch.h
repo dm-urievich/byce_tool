@@ -10,6 +10,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QRadioButton>
+#include <QTextStream>
 
 #include "hardware.h"
 
@@ -49,7 +50,7 @@ public:
     void setState(int state);
     bool refresh(void);
     bool isEvent(void);
-    void generateXml(QFile *file);
+    void generateXml(QTextStream &out);
 
 signals:
     void dInRaise(void);
