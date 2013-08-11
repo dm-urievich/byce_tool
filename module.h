@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QDebug>
 #include <QPainter>
+#include <QString>
 
 /*
  * базовый клас для всех элементов системы
@@ -11,15 +12,17 @@
  * содержит простые методы для настройки, но больше относиться к ПО для ПК
  */
 
-class Module : public QWidget
+class Module : public QObject
 {
     Q_OBJECT
 
 public:
-    Module(QWidget *parent = 0);
+    Module(QObject *parent = 0);
 
-    void paintEvent(QPaintEvent *);
-    void settings();
+    QString name;
+    int idModule;   // уникальный идентификатор, модули различаются по нему
+
+    void virtual settings();
 };
 
 #endif // MODULE_H

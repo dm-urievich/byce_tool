@@ -1,13 +1,10 @@
 #include "hardware.h"
 #include "hardwaresettingsdialog.h"
 
-Hardware::Hardware(QWidget *parent, QString n) :
+Hardware::Hardware(QObject *parent, QString n) :
       Module(parent),
       name(n)
 {
-    enableReadCheck = new QCheckBox(parent);
-    enableReadCheck->setChecked(true);
-
     //mbPort_ = 0;
 }
 
@@ -44,23 +41,24 @@ void Hardware::readReg(ModbusRegister &reg)
 }
 
 // чтение группы регистров
-void Hardware::readRegisters(int regAddr, int cont, quint16 *data)
+int Hardware::readRegisters(int regAddr, int cont, quint16 *data)
 {
-    if (mbPort_ != 0 && enableReadCheck->isChecked()) {
+    if (mbPort_ != 0) {
         modbus_set_slave(mbPort_, mbAddr_);
-        modbus_read_registers(mbPort_, regAddr, cont, data);
+        return modbus_read_registers(mbPort_, regAddr, cont, data);
     }
     else {
         for (int i = 0; i < cont; i++) {
             data[i] = 0;
         }
     }
+    return -1;
 }
 
 // запись одного регистра
 void Hardware::writeReg(int regAddr, quint16 data)
 {
-    if (mbPort_ != 0 && enableReadCheck->isChecked()) {
+    if (mbPort_ != 0) {
         modbus_set_slave(mbPort_, mbAddr_);
         modbus_write_register(mbPort_, regAddr, data);
     }
@@ -68,15 +66,10 @@ void Hardware::writeReg(int regAddr, quint16 data)
 
 void Hardware::writeReg(ModbusRegister &reg)
 {
-    if (mbPort_ != 0 && enableReadCheck->isChecked()) {
+    if (mbPort_ != 0) {
         modbus_set_slave(mbPort_, mbAddr_);
         modbus_write_register(mbPort_, reg.addr, reg.data_);
     }
-}
-
-void Hardware::settingsButtonClick(void)
-{
-    HardwareSettingsDialog settingsWindow(0, "eSwitch.h", this);
 }
 
 void Hardware::generateXml(QFile* file)
@@ -99,4 +92,8 @@ void Hardware::generateXml(QFile* file)
     hardware.save(out, 4);
 }
 
+void Hardware::settings()
+{
+    qDebug() << "I am Hardware module";
+}
 

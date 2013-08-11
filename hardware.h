@@ -25,10 +25,10 @@ class Hardware : public Module
     Q_OBJECT
 
 public:
-    Hardware(QWidget *parent = 0, QString n = "HardwareModule");
+    Hardware(QObject *parent = 0, QString n = "HardwareModule");
 
     QString name;
-    QCheckBox* enableReadCheck;
+
     static void setMbPort(modbus_t *port);
 
     void setMbAddr(int addr);
@@ -37,18 +37,17 @@ public:
     void readReg(ModbusRegister& reg);
     void writeReg(int regAddr, quint16 data);
     void writeReg(ModbusRegister& reg);
+    void settings();
 
-    void virtual generateXml(QFile *file);
+    virtual bool refresh() = 0;
+    virtual bool isEvent() = 0;
+    virtual void generateXml(QFile *file);
 
 protected:
     static modbus_t *mbPort_;
-    void readRegisters(int regAddr, int cont, quint16* data);
+    int readRegisters(int regAddr, int cont, quint16* data);
 
     int mbAddr_;
-    QPushButton *settingsButton;
-
-protected slots:
-    void settingsButtonClick(void);
 
 private:
 

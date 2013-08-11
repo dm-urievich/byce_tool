@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mbReadRequestTimer = new QTimer;
     eSwitchOnTimer = new QTimer;
 
+    transferHardwareModules = new TransferThread(&hardwareVector);
   //  hardwareVector = new QVector<eSwitch*>;
    // softwareVector = new QVector<Software*>;
     numModuls_ = 0;
@@ -53,6 +54,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->lineEditDeviceAddrRegs, SIGNAL(editingFinished()), this, SLOT(lineEditChenged()));
     connect(ui->radioButtonHex, SIGNAL(clicked()), this, SLOT(lineEditChenged()));
     connect(ui->radioButtonInt, SIGNAL(clicked()), this, SLOT(lineEditChenged()));
+
+    connect(transferHardwareModules, SIGNAL(transferTime(int)), ui->lcdNumberTimeTransfer, SLOT(display(int)));
 
 }
 
@@ -89,6 +92,9 @@ void MainWindow::initbuttons()
     connect(ui->pushButtonAddTimer, SIGNAL(clicked()), this, SLOT(addTimerButtonClick()));
     connect(ui->pushButtonConfigureSignals, SIGNAL(clicked()), this, SLOT(confirureSignalsModules()));
     connect(ui->pushButtonStartScript, SIGNAL(clicked()), this, SLOT(tryScriptEngine()));
+
+    connect(ui->pushButtonStartThread, SIGNAL(clicked()), transferHardwareModules, SLOT(start()));
+    connect(ui->spinBoxPeriod, SIGNAL(valueChanged(int)), transferHardwareModules, SLOT(setPeriod(int)));
 }
 
 void MainWindow::showWindowOption()
@@ -135,6 +141,7 @@ void MainWindow::buttonOpenCloseClick()
             ui->buttonOpenClose->setText(QString::fromLocal8Bit("Закрыть"));
 
             Hardware::setMbPort(this->mbPort);
+            //modbus_set_debug(mbPort, true);
         }
     }
     else {
@@ -559,19 +566,20 @@ void MainWindow::eSwitchClassInit()
     }
 
     addr = getIntFromTexEditText(ui->lineEditAddreSwitchClass->text());
-
     name = ui->lineEditNameeSwitchClass->text();
     addr = ui->lineEditAddreSwitchClass->text().toInt();
-    eswitchDev = new eSwitch(ui->tab, name, addr);
+    //eswitchDev = new eSwitch(ui->tab, name, addr);
+    eswitchDev = new eSwitch(0, name, addr);
     // помещаем девайс на форму
     xPos = numModuls_ * 125 + 10;
-    eswitchDev->move(xPos, 100);
+    //eswitchDev->move(xPos, 100);
     numModuls_++;
 
     //eswitchDev->setMbPort(this->mbPort);
     eswitchDev->setMbAddr(addr);
 
     hardwareVector.push_back(eswitchDev);
+    eswitchDev->moveToThread(transferHardwareModules);
 }
 
 void MainWindow::addTimerButtonClick()
@@ -584,7 +592,7 @@ void MainWindow::addTimerButtonClick()
     byceTimer = new ByceTimer(ui->tab, name);
     // помещаем девайс на форму
     xPos = numModuls_ * 125 + 10;
-    byceTimer->move(xPos, 100);
+    //byceTimer->move(xPos, 100);
     numModuls_++;
 
     softwareVector.push_back(byceTimer);
@@ -594,9 +602,18 @@ void MainWindow::confirureSignalsModules()
 {
     ByceTimer *byceTimer = (ByceTimer*) softwareVector[0];
     eSwitch *eswitchDev = (eSwitch*) hardwareVector[0];
+    Module *moduleClass = new Module;
 
     connect(eswitchDev, SIGNAL(dInRaise()), byceTimer, SLOT(startTimerButton()));
     connect(byceTimer, SIGNAL(byceTimeOut()), eswitchDev, SLOT(off()));
+
+    // изучаю полиморфизм
+    moduleClass->settings();
+    byceTimer->settings();
+    eswitchDev->settings();
+    moduleClass = (Module*) byceTimer;
+    moduleClass->settings();
+    delete moduleClass;
 }
 
 void MainWindow::tryScriptEngine()

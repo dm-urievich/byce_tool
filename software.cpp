@@ -1,6 +1,6 @@
 #include "software.h"
 
-Software::Software(QWidget *parent, QString n) :
+Software::Software(QObject *parent, QString n) :
     Module(parent),
     name(n)
 {
@@ -10,5 +10,5 @@ Software::Software(QWidget *parent, QString n) :
 
 void Software::settings()
 {
-    qDebug() << "i'm virtual in next class";
+    qDebug() << "I am Software module";
 }

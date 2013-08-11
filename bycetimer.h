@@ -14,13 +14,9 @@ class ByceTimer : public Software
     Q_OBJECT
 
 public:
-    ByceTimer(QWidget *parent = 0, QString name = "ByceTimer");
+    ByceTimer(QObject *parent = 0, QString name = "ByceTimer");
 
-    QLabel *nameModule;
     QTimer* mainTimer;
-    QPushButton* buttonStart;
-    QPushButton* buttonStop;
-    QSpinBox* timeBox;
 
 public slots:
     void startTimerButton(void);

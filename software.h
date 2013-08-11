@@ -10,7 +10,7 @@ class Software : public Module
     Q_OBJECT
 
 public:
-    Software(QWidget *parent = 0, QString n = "SoftwareModule");
+    Software(QObject *parent = 0, QString n = "SoftwareModule");
 
     QString name;
 

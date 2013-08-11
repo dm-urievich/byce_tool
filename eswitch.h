@@ -39,44 +39,25 @@ class eSwitch : public Hardware
     Q_OBJECT
 
 public:
-    eSwitch(QWidget *parent = 0, QString name = "eSwitch", int addr = 1);
-
-    void paintEvent(QPaintEvent *);
-    QLabel *nameDev;
-
-    QTimer *readTimer;
+    eSwitch(QObject *parent = 0, QString name = "eSwitch", int addr = 1);
 
     bool eSwitchOutState;
     bool dInState;
     int adcData;
 
-    void settings(void);
     bool getState(void);
     void setState(int state);
-    void refresh(void);
+    bool refresh(void);
+    bool isEvent(void);
     void generateXml(QFile *file);
-
-public slots:
-    void on(void);
-    void off(void);
 
 signals:
     void dInRaise(void);
     void dInFall(void);
 
 private:
-    QPushButton *mainButton;
-    QRadioButton *dInStateButton;
-    QLabel *adcDataLable;
-
     bool raiseEvent_;
     bool fallEvent_;
-
-    void changeButtonIcon(void);
-
-private slots:
-    void mainButtonClick(void);
-    void readTimerEvent(void);
 
 };
 

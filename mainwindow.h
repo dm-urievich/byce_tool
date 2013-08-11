@@ -22,6 +22,7 @@
 #include "bycetimer.h"
 
 #include "module.h"
+#include "transferthread.h"
 
 namespace Ui {
 class MainWindow;
@@ -52,6 +53,8 @@ private:
     QTimer *eSwitchOnTimer;
 
     Module *testModule;
+
+    TransferThread* transferHardwareModules;
 
     QVector<Hardware*> hardwareVector;
     QVector<Software*> softwareVector;

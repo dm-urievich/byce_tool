@@ -36,7 +36,9 @@ SOURCES += main.cpp\
     hardware.cpp \
     modbusregister.cpp \
     hardwaresettingsdialog.cpp \
-    bycetimer.cpp
+    bycetimer.cpp \
+    transferthread.cpp \
+    modulegui.cpp
 
 HEADERS  += mainwindow.h \
     windowoptions.h \
@@ -61,7 +63,9 @@ HEADERS  += mainwindow.h \
     hardware.h \
     modbusregister.h \
     hardwaresettingsdialog.h \
-    bycetimer.h
+    bycetimer.h \
+    transferthread.h \
+    modulegui.h
 
 FORMS    += mainwindow.ui \
     windowoptions.ui \
