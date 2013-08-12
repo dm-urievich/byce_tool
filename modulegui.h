@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QString>
+#include <QDomElement>
 
 class ModuleGui : public QWidget
 {
@@ -11,6 +12,9 @@ public:
     explicit ModuleGui(QString nameModule, int IdModule, QWidget *parent = 0);
     QString name;
     int idModule;
+
+    virtual void parseXml(QDomElement& domElement);
+    virtual void refresh(void);
 
 signals:
     

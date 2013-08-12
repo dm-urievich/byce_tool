@@ -22,7 +22,8 @@ public:
     QString name;
     int idModule;   // уникальный идентификатор, модули различаются по нему
 
-    void virtual settings();
+    void virtual settings(void);
+
 };
 
 #endif // MODULE_H

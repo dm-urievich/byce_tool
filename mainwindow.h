@@ -12,6 +12,9 @@
 #include <QInputDialog>
 #include <QVector>
 #include <QtScript>
+#include <QDomDocument>
+#include <QDomElement>
+#include <QDomText>
 
 #include "modbus.h"
 #include "busmonitor.h"

@@ -45,6 +45,7 @@ public:
     bool eSwitchOutState;
     bool dInState;
     int adcData;
+    int adcHysteresis;
 
     bool getState(void);
     void setState(int state);
@@ -59,6 +60,7 @@ signals:
 private:
     bool raiseEvent_;
     bool fallEvent_;
+    bool adcEvent_;
 
 };
 

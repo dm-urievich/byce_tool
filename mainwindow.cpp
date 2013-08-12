@@ -87,10 +87,10 @@ void MainWindow::initbuttons()
 
     connect(ui->pushButtonAddTimer, SIGNAL(clicked()), this, SLOT(addTimerButtonClick()));
     connect(ui->pushButtonConfigureSignals, SIGNAL(clicked()), this, SLOT(confirureSignalsModules()));
-    connect(ui->pushButtonStartScript, SIGNAL(clicked()), this, SLOT(tryScriptEngine()));
+    connect(ui->pushButtonStartScript, SIGNAL(clicked()), this, SLOT(refreshModulesGui()));
 
     connect(ui->pushButtonStartThread, SIGNAL(clicked()), coreThread, SLOT(start()));
-    //connect(ui->spinBoxPeriod, SIGNAL(valueChanged(int)), transferHardwareModules, SLOT(setPeriod(int)));
+    connect(ui->spinBoxPeriod, SIGNAL(valueChanged(int)), coreThread, SIGNAL(setTransferPeriod(int)));
 }
 
 void MainWindow::showWindowOption()
@@ -620,10 +620,44 @@ void MainWindow::confirureSignalsModules()
 
 void MainWindow::refreshModulesGui()
 {
-    QFile outFile("moduleEvents.xml");
-    if (outFile.open(QIODevice::ReadOnly)) {
-        // парсим xml файл с событиями
+    QDomDocument doc("module");
+    QFile inFile("moduleEvents.xml");
+    QString errorParse;
+    QVector<ModuleGui*>::iterator module = moduleGuiVector.begin();
+    int errorLine;
+    int idModule = 0;
 
+    if (!inFile.open(QIODevice::ReadOnly))
+        return;
+    if (!doc.setContent(&inFile, &errorParse, &errorLine)) {
+        qDebug() << "Error: " << errorParse;
+        qDebug() << "in line: " << errorLine << endl;
+        inFile.close();
+        return;
+    }
+    inFile.close();
+
+    // печатает имена всех непосредственных потомков
+    // внешнего элемента.
+    QDomElement docElem = doc.documentElement();
+
+    QDomNode n = docElem.firstChild();
+    while(!n.isNull()) {
+        QDomElement e = n.toElement(); // пробуем преобразовать узел в элемент.
+        if(!e.isNull()) {
+            //qDebug() << e.tagName() << '\n'; // узел действительно является элементом.
+            //qDebug() << "attr: " << e.attribute("id") << '\n';
+            idModule = e.attribute("id").toInt();
+            if (idModule) {
+                 // удобнее это вынести в функцию
+                for (; module != moduleGuiVector.end(); ++module) {
+                    if ((*module)->idModule == idModule) {
+                        (*module)->parseXml(e);
+                    }
+                }
+            }
+        }
+        n = n.nextSibling();
     }
 }
 

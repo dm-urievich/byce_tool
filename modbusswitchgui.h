@@ -5,6 +5,9 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QDomElement>
+#include <QDebug>
+#include <QString>
 
 class ModbusSwitchGui : public ModuleGui
 {
@@ -12,6 +15,9 @@ class ModbusSwitchGui : public ModuleGui
 public:
     explicit ModbusSwitchGui(QString nameModule, int IdModule, QWidget *parent = 0);
     
+    void parseXml(QDomElement &domElement);
+    void refresh(void);
+
 signals:
     
 public slots:
@@ -24,6 +30,8 @@ private:
     QLabel* adcDataLable;
 
     bool modbusSwitchOutState;
+    bool dinState_;
+    int adcData_;
 
     void changeButtonIcon();
 

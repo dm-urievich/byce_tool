@@ -8,6 +8,16 @@ ModuleGui::ModuleGui(QString nameModule, int IdModule, QWidget *parent) :
     this->show();
 }
 
+void ModuleGui::parseXml(QDomElement &domElement)
+{
+
+}
+
+void ModuleGui::refresh()
+{
+
+}
+
 /*
 
 hardware!

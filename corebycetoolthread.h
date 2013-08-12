@@ -18,6 +18,7 @@ public:
     
 signals:
     void guiRefresh();
+    void setTransferPeriod(int);
 
 public slots:
     void createNewHardwareModule(Hardware *device);

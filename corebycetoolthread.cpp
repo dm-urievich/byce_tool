@@ -6,6 +6,7 @@ CoreByceToolThread::CoreByceToolThread(QObject *parent) :
     transferHardwareModules = new TransferThread(&hardwareVector, &lockHardwareVector);
 
     connect(transferHardwareModules, SIGNAL(eventInModule(bool)), this, SLOT(generateXmlHardware(bool)));
+    connect(this, SIGNAL(setTransferPeriod(int)), transferHardwareModules, SLOT(setPeriod(int)));
 }
 
 void CoreByceToolThread::run()

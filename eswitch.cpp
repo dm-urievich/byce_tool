@@ -10,6 +10,8 @@ eSwitch::eSwitch(QObject *parent, QString name, int addr) : Hardware(parent, nam
     adcData = 0;
     raiseEvent_ = false;
     fallEvent_ = false;
+    adcEvent_ = false;
+    adcHysteresis = 5;
 }
 
 bool eSwitch::refresh(void)
@@ -46,14 +48,24 @@ bool eSwitch::refresh(void)
     }
 
     // заполняем данные с АЦП
-    adcData = data[5];
+    //if ((data[5] + adcHysteresis >= adcData) || (data[5] - adcHysteresis <= adcData)) {
+    if (data[5] >= adcData + adcHysteresis) {
+        adcEvent_ = true;
+        adcData = data[5] - (data[5] % adcHysteresis);
+    }
+    else
+        if (data[5] <= adcData - adcHysteresis) {
+            adcEvent_ = true;
+            adcData = data[5] - (data[5] % adcHysteresis);
+        }
+    //adcData = data[5];
 
     return true;
 }
 
 bool eSwitch::isEvent()
 {
-    if (raiseEvent_ || fallEvent_) {
+    if (raiseEvent_ || fallEvent_ || adcEvent_) {
         return true;
     }
     else
@@ -62,7 +74,7 @@ bool eSwitch::isEvent()
 
 void eSwitch::generateXml(QTextStream& out)
 {
-    out << "<modbusSwtich>\n";
+    out << "<modbusSwitch id=\"" << idModule <<"\">\n";
     out << "<idModule>"     << idModule         << "</idModule>\n";
     out << "<name>"         << name             << "</name>\n";
     out << "<mbAddr>"       << mbAddr_          << "</mbAddr>\n";
@@ -75,4 +87,5 @@ void eSwitch::generateXml(QTextStream& out)
 
     raiseEvent_ = false;
     fallEvent_ = false;
+    adcEvent_ = false;
 }

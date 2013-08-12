@@ -14,7 +14,7 @@ void TransferThread::run()
     QVector<Hardware*>::Iterator device;// = hardwareVector_->begin();
     QTime timer;
     timer.start();
-    QTextStream *outXml;
+    //QTextStream *outXml;
     bool isEvent = false;
 
     for (;;) {
@@ -24,7 +24,7 @@ void TransferThread::run()
             if ((*device)->refresh()) {
                 if ((*device)->isEvent()) {
                     isEvent = true;
-                    qDebug() << "Event in " << (*device)->name;
+                    //qDebug() << "Event in " << (*device)->name;
                     /*
                     QFile file((*device)->name + ".xml");
                     if (file.open(QIODevice::WriteOnly)) {
@@ -37,7 +37,7 @@ void TransferThread::run()
                 }
             }
             else {
-                qDebug() << "No response " << (*device)->name;
+                //qDebug() << "No response " << (*device)->name;
             }
             msleep(2);  // время на раздупление (скорее аппаратной части)
         }
@@ -50,7 +50,6 @@ void TransferThread::run()
             isEvent = false;
         }
 
-        //qDebug() << "I am in thread :)";
         // для честного опроса нужно от периода вычитать время потраченное на выполнение
         msleep(period_);        // нужно в это время парсить xml с сокетами
     }

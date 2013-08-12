@@ -92,3 +92,34 @@ void ModbusSwitchGui::changeButtonIcon(void)
         mainButton->setIcon(QIcon(":/img/lampOff.png"));
     }
 }
+
+void ModbusSwitchGui::parseXml(QDomElement &domElement)
+{
+    QString tagName;
+
+    QDomNode n = domElement.firstChild();
+    while(!n.isNull()) {
+        QDomElement e = n.toElement(); // пробуем преобразовать узел в элемент.
+        if(!e.isNull()) {
+            tagName = e.tagName(); // узел действительно является элементом.
+            if (tagName == "outState") {
+                modbusSwitchOutState = (e.text().toInt()) ? true : false;
+            }
+            if (tagName == "dinState") {
+                dinState_ = (e.text().toInt()) ? true : false;
+            }
+            if (tagName == "adcData") {
+                adcData_ = e.text().toInt();
+            }
+        }
+        n = n.nextSibling();
+    }
+    refresh();
+}
+
+void ModbusSwitchGui::refresh()
+{
+    changeButtonIcon();
+    dInStateButton->setChecked(dinState_);
+    adcDataLable->setText(QString::number(adcData_));
+}

@@ -1020,7 +1020,7 @@
          <item row="1" column="5">
           <widget class="QPushButton" name="pushButtonStartScript">
            <property name="text">
-            <string>Script</string>
+            <string>read xml</string>
            </property>
           </widget>
          </item>
