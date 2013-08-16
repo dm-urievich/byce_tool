@@ -4,6 +4,7 @@
 #include <QThread>
 #include <QVector>
 #include <QMutex>
+#include <QDomDocument>
 
 #include "hardware.h"
 #include "software.h"
@@ -23,6 +24,7 @@ signals:
 public slots:
     void createNewHardwareModule(Hardware *device);
     void generateXmlHardware(bool isEvent);
+    void parseSockets(void);
 
 protected:
     void run();

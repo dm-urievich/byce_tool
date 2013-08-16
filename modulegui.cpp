@@ -18,6 +18,16 @@ void ModuleGui::refresh()
 
 }
 
+void ModuleGui::generateXml(QTextStream &out)
+{
+
+}
+
+bool ModuleGui::isEvent()
+{
+    return false;
+}
+
 /*
 
 hardware!

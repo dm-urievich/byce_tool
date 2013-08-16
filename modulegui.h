@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QString>
 #include <QDomElement>
+#include <QTextStream>
 
 class ModuleGui : public QWidget
 {
@@ -14,9 +15,12 @@ public:
     int idModule;
 
     virtual void parseXml(QDomElement& domElement);
+    virtual void generateXml(QTextStream& out);
     virtual void refresh(void);
+    virtual bool isEvent(void);
 
 signals:
+    void event(void);
     
 public slots:
     

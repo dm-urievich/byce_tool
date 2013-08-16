@@ -55,6 +55,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //connect(transferHardwareModules, SIGNAL(transferTime(int)), ui->lcdNumberTimeTransfer, SLOT(display(int)));
     connect(coreThread, SIGNAL(guiRefresh()), this, SLOT(refreshModulesGui()));
+    connect(this, SIGNAL(moduleSocketRead()), coreThread, SLOT(parseSockets()));
 
 }
 
@@ -575,6 +576,7 @@ void MainWindow::eSwitchClassInit()
     moduleGui->move(xPos, 100);
     numModuls_++;
 
+    connect(moduleGui, SIGNAL(event()), this, SLOT(generateXmlModuleGui()));
     moduleGuiVector.push_back(moduleGui);
 
     //eswitchDev->setMbPort(this->mbPort);
@@ -660,6 +662,31 @@ void MainWindow::refreshModulesGui()
         n = n.nextSibling();
     }
 }
+
+void MainWindow::generateXmlModuleGui()
+{
+    QVector<ModuleGui*>::Iterator module;
+
+    QFile outFile("moduleSockets.xml");
+    if (outFile.open(QIODevice::WriteOnly)) {
+        QTextStream out(&outFile);
+        out.setCodec("UTF-8");
+        out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+        out << "<module>\n";
+
+        for (module = moduleGuiVector.begin(); module != moduleGuiVector.end(); ++module) {
+            if ((*module)->isEvent()) {
+                (*module)->generateXml(out);
+            }
+        }
+
+        out << "</module>\n";
+        outFile.close();
+
+        emit moduleSocketRead();
+    }
+}
+
 
 void MainWindow::tryScriptEngine()
 {

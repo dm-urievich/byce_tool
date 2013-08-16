@@ -4,6 +4,8 @@ ModbusSwitchGui::ModbusSwitchGui(QString nameModule, int IdModule, QWidget *pare
     ModuleGui(nameModule, IdModule, parent)
 {
     modbusSwitchOutState = false;
+    onSocket_ = false;
+    offSocket_ = false;
 
     nameDev = new QLabel(this);
     nameDev->setText(name);
@@ -47,40 +49,21 @@ bool ModbusSwitchGui::getState()
     return eSwitchOutState;
 }
 
-void ModbusSwitchGui::on()
-{
-    int regAddr = 0;
-    int data = 1;
-
-    writeReg(regAddr, data);
-}
-
-void ModbusSwitchGui::off()
-{
-    int regAddr = 0;
-    int data = 0;
-
-    writeReg(regAddr, data);
-}
 */
 void ModbusSwitchGui::mainButtonClick(void)
 {
     if (modbusSwitchOutState) {
         modbusSwitchOutState = false;
+        offSocket_ = true;
     }
     else {
         modbusSwitchOutState = true;
+        onSocket_ = true;
     }
 
     changeButtonIcon();
-/*
-    if (eSwitchOutState) {
-        on();
-    }
-    else {
-        off();
-    }
-    */
+
+    emit event();
 }
 
 void ModbusSwitchGui::changeButtonIcon(void)
@@ -122,4 +105,22 @@ void ModbusSwitchGui::refresh()
     changeButtonIcon();
     dInStateButton->setChecked(dinState_);
     adcDataLable->setText(QString::number(adcData_));
+}
+
+void ModbusSwitchGui::generateXml(QTextStream &out)
+{
+    out << "<modbusSwitchGui id=\"" << idModule <<"\">\n";
+    out << "<idModule>"     << idModule         << "</idModule>\n";
+    out << "<name>"         << name             << "</name>\n";
+    out << "<onSocket>"     << onSocket_        << "</onSocket>\n";
+    out << "<offSocket>"    << offSocket_       << "</offSocket>\n";
+    out << "</modbusSwitchGui>\n";
+
+    onSocket_ = false;
+    offSocket_ =false;
+}
+
+bool ModbusSwitchGui::isEvent()
+{
+    return (onSocket_ || offSocket_);
 }

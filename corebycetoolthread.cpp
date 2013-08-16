@@ -54,3 +54,48 @@ void CoreByceToolThread::generateXmlHardware(bool isEvent)
         emit guiRefresh();
     }
 }
+
+void CoreByceToolThread::parseSockets()
+{
+    QDomDocument doc("module");
+    QFile inFile("moduleSockets.xml");
+    QString errorParse;
+    QVector<Hardware*>::iterator module; //= hardwareVector.begin();
+    int errorLine;
+    int idModule = 0;
+
+    if (!inFile.open(QIODevice::ReadOnly))
+        return;
+    if (!doc.setContent(&inFile, &errorParse, &errorLine)) {
+        qDebug() << "Error: " << errorParse;
+        qDebug() << "in line: " << errorLine << endl;
+        inFile.close();
+        return;
+    }
+    inFile.close();
+
+    // печатает имена всех непосредственных потомков
+    // внешнего элемента.
+    QDomElement docElem = doc.documentElement();
+
+    lockHardwareVector.lock();
+    QDomNode n = docElem.firstChild();
+    while(!n.isNull()) {
+        QDomElement e = n.toElement(); // пробуем преобразовать узел в элемент.
+        if(!e.isNull()) {
+            //qDebug() << e.tagName() << '\n'; // узел действительно является элементом.
+            //qDebug() << "attr: " << e.attribute("id") << '\n';
+            idModule = e.attribute("id").toInt();
+            if (idModule) {
+                 // удобнее это вынести в функцию
+                for (module = hardwareVector.begin(); module != hardwareVector.end(); ++module) {
+                    if ((*module)->idModule == idModule) {
+                        (*module)->parseXml(e);
+                    }
+                }
+            }
+        }
+        n = n.nextSibling();
+    }
+    lockHardwareVector.unlock();
+}

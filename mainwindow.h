@@ -78,6 +78,9 @@ private:
     QString checkDataString(QString, int);
     int getIntFromTexEditText(QString);
 
+signals:
+    void moduleSocketRead(void);
+
 private slots:
     void showWindowOption(void);
     void buttonOpenCloseClick(void);
@@ -105,6 +108,7 @@ private slots:
     void tryScriptEngine(void);
 
     void refreshModulesGui(void);
+    void generateXmlModuleGui(void);
 
 public slots:
 

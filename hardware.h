@@ -42,12 +42,15 @@ public:
     virtual bool refresh() = 0;
     virtual bool isEvent() = 0;
     virtual void generateXml(QTextStream &out);
+    virtual void parseXml(QDomElement &domElement) = 0;
 
 protected:
     static modbus_t *mbPort_;
     int readRegisters(int regAddr, int cont, quint16* data);
 
     int mbAddr_;
+    bool refreshEvent_;         // событие для обновления данных с девайса
+    bool isFirstRefresh_;       // признак первого обмена
 
 private:
 

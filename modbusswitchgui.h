@@ -8,6 +8,7 @@
 #include <QDomElement>
 #include <QDebug>
 #include <QString>
+#include <QTextStream>
 
 class ModbusSwitchGui : public ModuleGui
 {
@@ -17,6 +18,8 @@ public:
     
     void parseXml(QDomElement &domElement);
     void refresh(void);
+    void generateXml(QTextStream& out);
+    bool isEvent(void);
 
 signals:
     
@@ -32,6 +35,9 @@ private:
     bool modbusSwitchOutState;
     bool dinState_;
     int adcData_;
+
+    bool onSocket_;
+    bool offSocket_;
 
     void changeButtonIcon();
 

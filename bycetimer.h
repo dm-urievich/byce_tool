@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include <QString>
 #include <QLabel>
+#include <QTextStream>
 
 class ByceTimer : public Software
 {
@@ -17,6 +18,8 @@ public:
     ByceTimer(QObject *parent = 0, QString name = "ByceTimer");
 
     QTimer* mainTimer;
+    void parseXml(QDomElement &domElement);
+    void generateXml(QTextStream &out);
 
 public slots:
     void startTimerButton(void);

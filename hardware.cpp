@@ -6,6 +6,8 @@ Hardware::Hardware(QObject *parent, QString n) :
       name(n)
 {
     //mbPort_ = 0;
+    refreshEvent_ = false;
+    isFirstRefresh_ = true;
 }
 
 modbus_t* Hardware::mbPort_ = 0;

@@ -1,10 +1,10 @@
 #ifndef MODULE_H
 #define MODULE_H
 
-#include <QWidget>
 #include <QDebug>
 #include <QPainter>
 #include <QString>
+#include <QDomElement>
 
 /*
  * базовый клас для всех элементов системы
@@ -22,7 +22,9 @@ public:
     QString name;
     int idModule;   // уникальный идентификатор, модули различаются по нему
 
-    void virtual settings(void);
+    virtual void settings(void);
+    virtual void generateXml(QTextStream &out) = 0;
+    virtual void parseXml(QDomElement &domElement) = 0;
 
 };
 

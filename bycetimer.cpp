@@ -28,3 +28,13 @@ void ByceTimer::mainTimerEvent(void)
         //timeBox->setValue(time_);
     }
 }
+
+void ByceTimer::parseXml(QDomElement &domElement)
+{
+
+}
+
+void ByceTimer::generateXml(QTextStream &out)
+{
+
+}

@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     transferthread.cpp \
     modulegui.cpp \
     corebycetoolthread.cpp \
-    modbusswitchgui.cpp
+    modbusswitchgui.cpp \
+    connector.cpp
 
 HEADERS  += mainwindow.h \
     windowoptions.h \
@@ -67,7 +68,8 @@ HEADERS  += mainwindow.h \
     transferthread.h \
     modulegui.h \
     corebycetoolthread.h \
-    modbusswitchgui.h
+    modbusswitchgui.h \
+    connector.h
 
 FORMS    += mainwindow.ui \
     windowoptions.ui \

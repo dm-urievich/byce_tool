@@ -11,6 +11,7 @@
 #include <QTimer>
 #include <QRadioButton>
 #include <QTextStream>
+#include <QDomElement>
 
 #include "hardware.h"
 
@@ -49,9 +50,13 @@ public:
 
     bool getState(void);
     void setState(int state);
+    void on(void);
+    void off(void);
+
     bool refresh(void);
     bool isEvent(void);
     void generateXml(QTextStream &out);
+    void parseXml(QDomElement &domElement);
 
 signals:
     void dInRaise(void);
