@@ -1,8 +1,7 @@
 #ifndef HARDWARE_H
 #define HARDWARE_H
 
-#include <QPushButton>
-#include <QCheckBox>
+#include <QObject>
 #include <QDomDocument>
 #include <QFile>
 #include <QTextStream>
@@ -20,7 +19,7 @@
  * все аппаратные штуки должны наследоваться от него
  */
 
-class Hardware : public Module
+class Hardware : public QObject, public Module
 {
     Q_OBJECT
 

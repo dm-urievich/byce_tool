@@ -2,7 +2,8 @@
 #include "hardwaresettingsdialog.h"
 
 Hardware::Hardware(QObject *parent, QString n) :
-      Module(parent),
+      QObject(parent),
+      Module(),
       name(n)
 {
     //mbPort_ = 0;

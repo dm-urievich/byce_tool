@@ -12,16 +12,15 @@
  * содержит простые методы для настройки, но больше относиться к ПО для ПК
  */
 
-class Module : public QObject
+class Module
 {
-    Q_OBJECT
-
 public:
-    Module(QObject *parent = 0);
+    Module();
 
     QString name;
     int idModule;   // уникальный идентификатор, модули различаются по нему
 
+    virtual bool isEvent(void);
     virtual void settings(void);
     virtual void generateXml(QTextStream &out) = 0;
     virtual void parseXml(QDomElement &domElement) = 0;

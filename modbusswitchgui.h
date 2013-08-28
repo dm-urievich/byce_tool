@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QString>
 #include <QTextStream>
+#include <QStringList>
 
 class ModbusSwitchGui : public ModuleGui
 {
@@ -20,6 +21,9 @@ public:
     void refresh(void);
     void generateXml(QTextStream& out);
     bool isEvent(void);
+    void socket(QString socket, QString dataSocket);
+    QStringList getListEvents();
+    QStringList getListSockets();
 
 signals:
     

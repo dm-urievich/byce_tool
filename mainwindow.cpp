@@ -57,10 +57,20 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(coreThread, SIGNAL(guiRefresh()), this, SLOT(refreshModulesGui()));
     connect(this, SIGNAL(moduleSocketRead()), coreThread, SLOT(parseSockets()));
 
+    // вкладка настройки соединений
+    connect(ui->tabWidgetMain, SIGNAL(currentChanged(int)), this, SLOT(refreshModuleConnection(int)));
+    connect(ui->comboBoxListModulesEvent, SIGNAL(currentIndexChanged(int)), this, SLOT(listModuleEvents(int)));
+    connect(ui->comboBoxListModulesSocket, SIGNAL(currentIndexChanged(int)), this, SLOT(listModuleSockets(int)));
+    connect(ui->pushButtonConnectEventSocket, SIGNAL(clicked()), this, SLOT(connectModules()));
 }
 
 MainWindow::~MainWindow()
 {
+    QVector<ModuleGui*>::Iterator module;
+    for (module = moduleVector.begin(); module != moduleVector.end(); ++module) {
+        delete *module;
+    }
+
     delete ui;
 }
 
@@ -569,7 +579,7 @@ void MainWindow::eSwitchClassInit()
     //eswitchDev = new eSwitch(ui->tab, name, addr);
     eswitchDev = new eSwitch(0, name, addr);
     moduleGui = new ModbusSwitchGui(name, addr, ui->tab);
-    eswitchDev->idModule = moduleGui->idModule = qrand ();
+    eswitchDev->idModule = moduleGui->idModule = qrand();
 
     // помещаем девайс на форму
     xPos = numModuls_ * 125 + 10;
@@ -577,7 +587,8 @@ void MainWindow::eSwitchClassInit()
     numModuls_++;
 
     connect(moduleGui, SIGNAL(event()), this, SLOT(generateXmlModuleGui()));
-    moduleGuiVector.push_back(moduleGui);
+    connect(moduleGui, SIGNAL(eventForGui(int,QString,QString)), this, SLOT(eventGuiMachine(int,QString,QString)));
+    moduleVector.push_back(moduleGui);
 
     //eswitchDev->setMbPort(this->mbPort);
     eswitchDev->setMbAddr(addr);
@@ -591,17 +602,24 @@ void MainWindow::addTimerButtonClick()
     ByceTimer *byceTimer;
 
     name = ui->lineEditNameeSwitchClass->text();
-    byceTimer = new ByceTimer(ui->tab, name);
+    byceTimer = new ByceTimer(name, qrand(), ui->tab);
     // помещаем девайс на форму
     xPos = numModuls_ * 125 + 10;
-    //byceTimer->move(xPos, 100);
+    byceTimer->move(xPos, 100);
     numModuls_++;
-
-    //softwareVector.push_back(byceTimer);
+    connect(byceTimer, SIGNAL(eventForGui(int,QString,QString)), this, SLOT(eventGuiMachine(int,QString,QString)));
+    moduleVector.push_back(byceTimer);
 }
 
 void MainWindow::confirureSignalsModules()
 {
+    Connector* connecModule = new Connector("connector", qrand(), this);
+    ModuleGui *sender = moduleVector[0];
+    ModuleGui *receiver = moduleVector[1];
+
+    connecModule->addConnection(sender->idModule, "timeOutEvent", receiver->idModule, "onSocket");
+    connect(connecModule, SIGNAL(eventForGui(int,QString,QString)), this, SLOT(eventGuiMachine(int,QString,QString)));
+    moduleVector.push_back(connecModule);
     /*
     ByceTimer *byceTimer = (ByceTimer*) softwareVector[0];
     eSwitch *eswitchDev = (eSwitch*) hardwareVector[0];
@@ -625,7 +643,7 @@ void MainWindow::refreshModulesGui()
     QDomDocument doc("module");
     QFile inFile("moduleEvents.xml");
     QString errorParse;
-    QVector<ModuleGui*>::iterator module = moduleGuiVector.begin();
+    QVector<ModuleGui*>::iterator module = moduleVector.begin();
     int errorLine;
     int idModule = 0;
 
@@ -652,7 +670,7 @@ void MainWindow::refreshModulesGui()
             idModule = e.attribute("id").toInt();
             if (idModule) {
                  // удобнее это вынести в функцию
-                for (; module != moduleGuiVector.end(); ++module) {
+                for (; module != moduleVector.end(); ++module) {
                     if ((*module)->idModule == idModule) {
                         (*module)->parseXml(e);
                     }
@@ -674,7 +692,7 @@ void MainWindow::generateXmlModuleGui()
         out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
         out << "<module>\n";
 
-        for (module = moduleGuiVector.begin(); module != moduleGuiVector.end(); ++module) {
+        for (module = moduleVector.begin(); module != moduleVector.end(); ++module) {
             if ((*module)->isEvent()) {
                 (*module)->generateXml(out);
             }
@@ -685,6 +703,20 @@ void MainWindow::generateXmlModuleGui()
 
         emit moduleSocketRead();
     }
+}
+
+void MainWindow::eventGuiMachine(int idModule, QString eventName, QString eventData)
+{
+    QVector<ModuleGui*>::Iterator module;
+
+
+    for (module = moduleVector.begin(); module != moduleVector.end(); ++module) {
+        if ((*module)->idModule == idModule) {
+            (*module)->socket(eventName, eventData);
+        }
+    }
+
+    generateXmlModuleGui();
 }
 
 
@@ -700,6 +732,56 @@ void MainWindow::tryScriptEngine()
     engine.globalObject().setProperty("label", objectLabel);
     engine.evaluate("label.setText(\"I am from script\")");
   //  engine.evaluate("label.setText(\"451\")");
+}
+
+void MainWindow::refreshModuleConnection(int num)
+{
+    if (num == 5) { // наша вкладка
+        QVector<ModuleGui*>::Iterator module;
+        ui->comboBoxListModulesEvent->clear();
+        ui->comboBoxListModulesSocket->clear();
+
+        for (module = moduleVector.begin(); module != moduleVector.end(); ++module) {
+            ui->comboBoxListModulesEvent->addItem((*module)->name);
+            ui->comboBoxListModulesSocket->addItem((*module)->name);
+        }
+    }
+}
+
+void MainWindow::listModuleEvents(int num)
+{
+    if (ui->comboBoxModuleEvent->count())  // убираем лишнее
+        ui->comboBoxModuleEvent->clear();
+    if (num != -1) {    // если контейнер не пуст
+        ui->comboBoxModuleEvent->addItems(moduleVector[num]->getListEvents());
+    }
+}
+
+void MainWindow::listModuleSockets(int num)
+{
+    if (ui->comboBoxModuleSocket->count())  // убираем лишнее
+        ui->comboBoxModuleSocket->clear();
+    if (num != -1) {    // если контейнер не пуст
+        ui->comboBoxModuleSocket->addItems(moduleVector[num]->getListSockets());
+    }
+}
+
+void MainWindow::connectModules()
+{
+    int indexSender, indexReceiver;
+    QString nameEvent, nameSocket;
+    Connector* connecModule = new Connector("connector", qrand(), this);
+    indexSender = ui->comboBoxListModulesEvent->currentIndex();
+    indexReceiver = ui->comboBoxListModulesSocket->currentIndex();
+    ModuleGui *sender = moduleVector[indexSender];
+    ModuleGui *receiver = moduleVector[indexReceiver];
+
+    nameEvent = ui->comboBoxModuleEvent->currentText();
+    nameSocket = ui->comboBoxModuleSocket->currentText();
+
+    connecModule->addConnection(sender->idModule, nameEvent, receiver->idModule, nameSocket);
+    connect(connecModule, SIGNAL(eventForGui(int,QString,QString)), this, SLOT(eventGuiMachine(int,QString,QString)));
+    moduleVector.push_back(connecModule);
 }
 
 // проверка адреса и данных на правельность ввода

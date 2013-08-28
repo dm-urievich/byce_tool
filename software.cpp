@@ -1,7 +1,8 @@
 #include "software.h"
 
 Software::Software(QObject *parent, QString n) :
-    Module(parent),
+    QObject(parent),
+    Module(),
     name(n)
 {
 

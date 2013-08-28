@@ -25,6 +25,7 @@
 
 #include "modulegui.h"
 #include "modbusswitchgui.h"
+#include "connector.h"
 
 #include "module.h"
 #include "corebycetoolthread.h"
@@ -60,7 +61,7 @@ private:
     TransferThread* transferHardwareModules;
     CoreByceToolThread* coreThread;
 
-    QVector<ModuleGui*> moduleGuiVector;
+    QVector<ModuleGui*> moduleVector;
 
     Module *testModule;
 
@@ -109,6 +110,12 @@ private slots:
 
     void refreshModulesGui(void);
     void generateXmlModuleGui(void);
+    void eventGuiMachine(int idModule, QString eventName, QString eventData);
+
+    void refreshModuleConnection(int);     // обновить данные на вкладке настройки соединений
+    void listModuleEvents(int);            // выводит список событий в комбобокс
+    void listModuleSockets(int);            // список сокетов
+    void connectModules(void);              // соединение модулей
 
 public slots:
 

@@ -6,7 +6,9 @@
 #include <QDomElement>
 #include <QTextStream>
 
-class ModuleGui : public QWidget
+#include <module.h>
+
+class ModuleGui : public QWidget, public Module
 {
     Q_OBJECT
 public:
@@ -18,9 +20,14 @@ public:
     virtual void generateXml(QTextStream& out);
     virtual void refresh(void);
     virtual bool isEvent(void);
+    virtual void socket(QString socket, QString dataSocket) = 0;
+    virtual QStringList getListEvents();
+    virtual QStringList getListSockets();
+
 
 signals:
-    void event(void);
+    void event(void);   // событие для генерации XML для аппаратного модуля
+    void eventForGui(int idModule, QString eventName, QString eventData);
     
 public slots:
     

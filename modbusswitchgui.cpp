@@ -94,6 +94,15 @@ void ModbusSwitchGui::parseXml(QDomElement &domElement)
             if (tagName == "adcData") {
                 adcData_ = e.text().toInt();
             }
+            if (tagName == "raiseEvent") {
+                if (e.text().toInt())
+                    emit eventForGui(idModule, tagName, e.text());
+            }
+            if (tagName == "fallEvent") {
+                if (e.text().toInt())
+                    emit eventForGui(idModule, tagName, e.text());
+            }
+
         }
         n = n.nextSibling();
     }
@@ -117,10 +126,47 @@ void ModbusSwitchGui::generateXml(QTextStream &out)
     out << "</modbusSwitchGui>\n";
 
     onSocket_ = false;
-    offSocket_ =false;
+    offSocket_ = false;
 }
 
 bool ModbusSwitchGui::isEvent()
 {
     return (onSocket_ || offSocket_);
+}
+
+void ModbusSwitchGui::socket(QString socket, QString dataSocket)
+{
+    if (socket == "onSocket") {
+        if (dataSocket.toInt()) {
+            modbusSwitchOutState = true;
+            onSocket_ = true;
+        }
+    }
+    if (socket == "offSocket") {
+        if (dataSocket.toInt()) {
+            modbusSwitchOutState = false;
+            offSocket_ = true;
+        }
+    }
+
+    refresh();
+}
+
+QStringList ModbusSwitchGui::getListEvents()
+{
+    QStringList list;
+    list.append("raiseEvent");
+    list.append("fallEvent");
+    list.append("adcData");
+
+    return list;
+}
+
+QStringList ModbusSwitchGui::getListSockets()
+{
+    QStringList list;
+    list.append("onSocket");
+    list.append("offSocket");
+
+    return list;
 }
