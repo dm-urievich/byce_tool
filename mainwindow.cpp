@@ -670,7 +670,7 @@ void MainWindow::refreshModulesGui()
             idModule = e.attribute("id").toInt();
             if (idModule) {
                  // удобнее это вынести в функцию
-                for (; module != moduleVector.end(); ++module) {
+                for (module = moduleVector.begin(); module != moduleVector.end(); ++module) {
                     if ((*module)->idModule == idModule) {
                         (*module)->parseXml(e);
                     }

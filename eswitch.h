@@ -66,6 +66,8 @@ private:
     bool raiseEvent_;
     bool fallEvent_;
     bool adcEvent_;
+    bool onEvent_;
+    bool offEvent_;
 
 };
 

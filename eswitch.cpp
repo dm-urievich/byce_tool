@@ -17,6 +17,7 @@ eSwitch::eSwitch(QObject *parent, QString name, int addr) : Hardware(parent, nam
 bool eSwitch::refresh(void)
 {
     bool prevState = dInState;
+    bool prevOutState = eSwitchOutState;
     int regAddr = 0;
     quint16 data[6];
 
@@ -47,6 +48,12 @@ bool eSwitch::refresh(void)
         raiseEvent_ = true;
     }
 
+    if (!eSwitchOutState && prevOutState)
+        offEvent_ = true;
+
+    if (eSwitchOutState && !prevOutState)
+        onEvent_ = true;
+
     // заполняем данные с АЦП
     if (data[5] >= adcData + adcHysteresis) {
         adcEvent_ = true;
@@ -71,7 +78,7 @@ bool eSwitch::refresh(void)
 
 bool eSwitch::isEvent()
 {
-    return (raiseEvent_ || fallEvent_ || adcEvent_ || refreshEvent_);
+    return (raiseEvent_ || fallEvent_ || adcEvent_ || refreshEvent_ || offEvent_ || onEvent_);
 }
 
 void eSwitch::generateXml(QTextStream &out)
@@ -91,6 +98,9 @@ void eSwitch::generateXml(QTextStream &out)
     fallEvent_ = false;
     adcEvent_ = false;
     refreshEvent_ = false;
+    offEvent_ = false;
+    onEvent_ = false;
+
 }
 
 void eSwitch::on()
