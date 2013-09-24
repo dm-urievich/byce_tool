@@ -105,7 +105,6 @@ private slots:
 
     void eSwitchClassInit(void);
     void addTimerButtonClick(void);
-    void confirureSignalsModules(void);
     void tryScriptEngine(void);
 
     void refreshModulesGui(void);

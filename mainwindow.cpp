@@ -97,7 +97,6 @@ void MainWindow::initbuttons()
  //   connect(this->eSwitchOnTimer, SIGNAL(timeout()), this, SLOT(eswitchOff()));
 
     connect(ui->pushButtonAddTimer, SIGNAL(clicked()), this, SLOT(addTimerButtonClick()));
-    connect(ui->pushButtonConfigureSignals, SIGNAL(clicked()), this, SLOT(confirureSignalsModules()));
     connect(ui->pushButtonStartScript, SIGNAL(clicked()), this, SLOT(refreshModulesGui()));
 
     connect(ui->pushButtonStartThread, SIGNAL(clicked()), coreThread, SLOT(start()));
@@ -611,32 +610,6 @@ void MainWindow::addTimerButtonClick()
     moduleVector.push_back(byceTimer);
 }
 
-void MainWindow::confirureSignalsModules()
-{
-    Connector* connecModule = new Connector("connector", qrand(), this);
-    ModuleGui *sender = moduleVector[0];
-    ModuleGui *receiver = moduleVector[1];
-
-    connecModule->addConnection(sender->idModule, "timeOutEvent", receiver->idModule, "onSocket");
-    connect(connecModule, SIGNAL(eventForGui(int,QString,QString)), this, SLOT(eventGuiMachine(int,QString,QString)));
-    moduleVector.push_back(connecModule);
-    /*
-    ByceTimer *byceTimer = (ByceTimer*) softwareVector[0];
-    eSwitch *eswitchDev = (eSwitch*) hardwareVector[0];
-    Module *moduleClass = new Module;
-
-    connect(eswitchDev, SIGNAL(dInRaise()), byceTimer, SLOT(startTimerButton()));
-    connect(byceTimer, SIGNAL(byceTimeOut()), eswitchDev, SLOT(off()));
-
-    // изучаю полиморфизм
-    moduleClass->settings();
-    byceTimer->settings();
-    eswitchDev->settings();
-    moduleClass = (Module*) byceTimer;
-    moduleClass->settings();
-    delete moduleClass;
-    */
-}
 
 void MainWindow::refreshModulesGui()
 {
