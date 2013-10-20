@@ -111,6 +111,7 @@ private slots:
     void generateXmlModuleGui(void);
     void eventGuiMachine(int idModule, QString eventName, QString eventData);
 
+    void addModulesGui(void);               // добавление модулей
     void refreshModuleConnection(int);     // обновить данные на вкладке настройки соединений
     void listModuleEvents(int);            // выводит список событий в комбобокс
     void listModuleSockets(int);            // список сокетов

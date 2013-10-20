@@ -93,10 +93,10 @@ void MainWindow::initbuttons()
     connect(ui->pushButtonSwitchOff, SIGNAL(clicked()), this, SLOT(eswitchOff()));
     connect(ui->pushButtonStartOn, SIGNAL(clicked()), this, SLOT(eswitchStartOn()));
     connect(ui->pushButtonStopOn, SIGNAL(clicked()), this, SLOT(eswitchOff()));
-    connect(ui->pushButtonIniteSwitchClass, SIGNAL(clicked()), this, SLOT(eSwitchClassInit()));
+
+    connect(ui->pushButtonAddModules, SIGNAL(clicked()), this, SLOT(addModulesGui()));
  //   connect(this->eSwitchOnTimer, SIGNAL(timeout()), this, SLOT(eswitchOff()));
 
-    connect(ui->pushButtonAddTimer, SIGNAL(clicked()), this, SLOT(addTimerButtonClick()));
     connect(ui->pushButtonStartScript, SIGNAL(clicked()), this, SLOT(refreshModulesGui()));
 
     connect(ui->pushButtonStartThread, SIGNAL(clicked()), coreThread, SLOT(start()));
@@ -550,6 +550,27 @@ void MainWindow::eswitchStartOn()
     this->eSwitchOnTimer->singleShot(time*1000, this, SLOT(eswitchOff()));
 
     this->eswitchOn();
+}
+
+/*
+ * добавление элементов на поле
+ */
+void MainWindow::addModulesGui()
+{
+    /*
+     * ModbusSwitch
+     * Timer
+     * LightSensor
+     */
+    switch (ui->comboBoxTypeNewModule->currentIndex()) {
+    case 0 :
+        eSwitchClassInit();
+        break;
+    case 1 :
+        addTimerButtonClick();
+        break;
+    default : break;
+    }
 }
 
 void MainWindow::eSwitchClassInit()

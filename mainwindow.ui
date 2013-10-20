@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>717</width>
-    <height>440</height>
+    <width>755</width>
+    <height>482</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -962,31 +962,72 @@
        <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>10</x>
           <y>20</y>
-          <width>652</width>
+          <width>711</width>
           <height>52</height>
          </rect>
         </property>
-        <layout class="QGridLayout" name="gridLayout_4">
-         <item row="1" column="4">
+        <layout class="QGridLayout" name="gridLayout_4" columnminimumwidth="0,0,0,0,0,0,0,0,0,0">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetDefaultConstraint</enum>
+         </property>
+         <item row="1" column="0">
+          <widget class="QLineEdit" name="lineEditNameeSwitchClass">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2" colspan="3">
+          <widget class="QComboBox" name="comboBoxTypeNewModule">
+           <item>
+            <property name="text">
+             <string>ModbusSwitch</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Timer</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>LightSensor</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="6">
           <widget class="QPushButton" name="pushButtonStartScript">
            <property name="text">
             <string>Refresh</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="2">
-          <widget class="QPushButton" name="pushButtonIniteSwitchClass">
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_18">
            <property name="text">
-            <string>Добавить</string>
+            <string>Адрес</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="3">
-          <widget class="QPushButton" name="pushButtonAddTimer">
-           <property name="text">
-            <string>AddTimer</string>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEditAddreSwitchClass">
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>16777215</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -997,23 +1038,10 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEditAddreSwitchClass"/>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_18">
+         <item row="1" column="5">
+          <widget class="QPushButton" name="pushButtonAddModules">
            <property name="text">
-            <string>Адрес</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLineEdit" name="lineEditNameeSwitchClass">
-           <property name="minimumSize">
-            <size>
-             <width>201</width>
-             <height>0</height>
-            </size>
+            <string>Добавить</string>
            </property>
           </widget>
          </item>
@@ -1153,7 +1181,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>717</width>
+     <width>755</width>
      <height>25</height>
     </rect>
    </property>
