@@ -11,7 +11,6 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QVector>
-#include <QtScript>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QDomText>
@@ -105,7 +104,6 @@ private slots:
 
     void eSwitchClassInit(void);
     void addTimerButtonClick(void);
-    void tryScriptEngine(void);
 
     void refreshModulesGui(void);
     void generateXmlModuleGui(void);

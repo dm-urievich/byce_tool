@@ -714,20 +714,6 @@ void MainWindow::eventGuiMachine(int idModule, QString eventName, QString eventD
 }
 
 
-void MainWindow::tryScriptEngine()
-{
-    QScriptEngine engine;
-    qDebug() << "the magic number is:" << engine.evaluate("1 + 2").toNumber();
-
-    QLabel* label = new QLabel;
-    label->show();
-    label->resize(120, 25);
-    QScriptValue objectLabel = engine.newQObject(label);
-    engine.globalObject().setProperty("label", objectLabel);
-    engine.evaluate("label.setText(\"I am from script\")");
-  //  engine.evaluate("label.setText(\"451\")");
-}
-
 void MainWindow::refreshModuleConnection(int num)
 {
     if (num == 5) { // наша вкладка
