@@ -101,6 +101,7 @@ private slots:
     void eswitchStartOn(void);
     void eswitchOn(void);
     void eswitchOff(void);
+    void eswitchConfigure(void);
 
     void eSwitchClassInit(void);
     void addTimerButtonClick(void);

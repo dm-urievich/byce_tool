@@ -3,6 +3,7 @@
 #include <QtDebug>
 
 #include "modbus.h"
+#include "hardwaresettingsdialog.h"
 
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
@@ -93,6 +94,7 @@ void MainWindow::initbuttons()
     connect(ui->pushButtonSwitchOff, SIGNAL(clicked()), this, SLOT(eswitchOff()));
     connect(ui->pushButtonStartOn, SIGNAL(clicked()), this, SLOT(eswitchStartOn()));
     connect(ui->pushButtonStopOn, SIGNAL(clicked()), this, SLOT(eswitchOff()));
+    connect(ui->pushButtonConfigSwitch, SIGNAL(clicked()), this, SLOT(eswitchConfigure()));
 
     connect(ui->pushButtonAddModules, SIGNAL(clicked()), this, SLOT(addModulesGui()));
  //   connect(this->eSwitchOnTimer, SIGNAL(timeout()), this, SLOT(eswitchOff()));
@@ -550,6 +552,31 @@ void MainWindow::eswitchStartOn()
     this->eSwitchOnTimer->singleShot(time*1000, this, SLOT(eswitchOff()));
 
     this->eswitchOn();
+}
+
+void MainWindow::eswitchConfigure()
+{
+    eSwitch module;
+
+    int addr;
+
+    if (mbPort == NULL) {
+        QMessageBox::information(NULL, QString::fromLocal8Bit("Ошибка подключения"),
+                                QString::fromLocal8Bit("Последовательный порт не отрыт!"));
+        return;
+    }
+
+    addr = eswitchGetSlaveAddr();
+    if (addr == -1) {
+        QMessageBox::information(NULL, QString::fromLocal8Bit("Ошибка подключения"),
+                                QString::fromLocal8Bit("Не задан сетевой адрес устройства!"));
+        return;
+    }
+
+    module.setMbPort(mbPort);
+    module.setMbAddr(addr);
+    HardwareSettingsDialog settingsWindow(0, "eSwitch.h", &module);
+
 }
 
 /*

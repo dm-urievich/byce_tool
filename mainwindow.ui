@@ -113,7 +113,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabRegisters">
        <attribute name="title">
@@ -478,6 +478,13 @@
              </property>
             </widget>
            </item>
+           <item row="6" column="0">
+            <widget class="QPushButton" name="pushButtonClearRegs">
+             <property name="text">
+              <string>Очистить</string>
+             </property>
+            </widget>
+           </item>
            <item row="5" column="0">
             <widget class="QLineEdit" name="lineEditRegAddr5">
              <property name="maxLength">
@@ -495,13 +502,6 @@
              </property>
              <property name="readOnly">
               <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <widget class="QPushButton" name="pushButtonClearRegs">
-             <property name="text">
-              <string>Очистить</string>
              </property>
             </widget>
            </item>
@@ -586,7 +586,7 @@
          <rect>
           <x>20</x>
           <y>21</y>
-          <width>333</width>
+          <width>352</width>
           <height>231</height>
          </rect>
         </property>
@@ -939,6 +939,19 @@
          <string>Start</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="pushButtonConfigSwitch">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>20</y>
+          <width>80</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Configure</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1167,7 +1180,7 @@
      <x>0</x>
      <y>0</y>
      <width>755</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     modulegui.cpp \
     corebycetoolthread.cpp \
     modbusswitchgui.cpp \
-    connector.cpp
+    connector.cpp \
+    motiondetect.cpp
 
 HEADERS  += mainwindow.h \
     windowoptions.h \
@@ -68,7 +69,8 @@ HEADERS  += mainwindow.h \
     modulegui.h \
     corebycetoolthread.h \
     modbusswitchgui.h \
-    connector.h
+    connector.h \
+    motiondetect.h
 
 FORMS    += mainwindow.ui \
     windowoptions.ui \
